@@ -1,0 +1,8 @@
+{
+  // Prose wraps at sentence length, not 80 columns.
+  "MD013": false,
+  // Badges and the <!-- --> comment in taste.example.md use inline HTML.
+  "MD033": false,
+  // CHANGELOG repeats "Added" / "Fixed" under each version.
+  "MD024": { "siblings_only": true }
+}
