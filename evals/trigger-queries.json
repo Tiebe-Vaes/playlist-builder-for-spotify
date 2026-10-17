@@ -1,0 +1,23 @@
+[
+  { "query": "make me a playlist for studying tonight", "should_trigger": true },
+  { "query": "can you build a spotify playlist for a road trip to the coast, like 3 hours", "should_trigger": true },
+  { "query": "I need a sad acoustic mix for a rainy sunday", "should_trigger": true },
+  { "query": "generate a workout playlist with stuff like Fred again..", "should_trigger": true },
+  { "query": "songs for a chill dinner party with friends?", "should_trigger": true },
+  { "query": "put together some music for falling asleep, mostly instrumental", "should_trigger": true },
+  { "query": "remake that playlist from last week but more upbeat", "should_trigger": true },
+  { "query": "I want to discover new indie artists, build me something", "should_trigger": true },
+  { "query": "spotify mix that sounds like radiohead and the goo goo dolls", "should_trigger": true },
+  { "query": "make a 45 minute focus playlist from my own playlists", "should_trigger": true },
+
+  { "query": "what song is playing right now on my spotify?", "should_trigger": false },
+  { "query": "save this album to my library", "should_trigger": false },
+  { "query": "who wrote the lyrics of Fake Plastic Trees?", "should_trigger": false },
+  { "query": "write a python script that exports my spotify playlists to csv", "should_trigger": false },
+  { "query": "what's the difference between spotify premium and free?", "should_trigger": false },
+  { "query": "recommend a good book about the history of britpop", "should_trigger": false },
+  { "query": "fix the bug in my React music player component", "should_trigger": false },
+  { "query": "explain how spotify's recommendation algorithm works", "should_trigger": false },
+  { "query": "make a youtube playlist of cooking tutorials", "should_trigger": false },
+  { "query": "list the tracks on OK Computer", "should_trigger": false }
+]

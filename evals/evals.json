@@ -1,0 +1,75 @@
+{
+  "skill_name": "playlist-builder-for-spotify",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "make me a playlist",
+      "expected_output": "Asks the four interview questions in one round, then asks for 2 to 4 anchor artists. Makes no generate_playlist call yet.",
+      "files": [],
+      "expectations": [
+        "Asks about occasion, mood or energy, length, and familiar vs discovery in a single message",
+        "Does not call generate_playlist before the user has answered",
+        "Does not ask the user to pick genres"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Build me a 2 hour sad acoustic study playlist, mostly stuff I know. Anchors: Radiohead and The Goo Goo Dolls.",
+      "expected_output": "Skips questions the request already answers and goes straight to the judge round: parallel plain-name searches for both anchors, numbered tracks with links and saved markers, and similar-artist rows.",
+      "files": [],
+      "expectations": [
+        "Does not re-ask length, mood, occasion or familiarity",
+        "Searches 'Radiohead' and 'The Goo Goo Dolls' as plain artist names, not vibe queries like 'chill songs like Radiohead'",
+        "Shows 6 to 9 numbered tracks with Spotify links",
+        "Marks tracks whose library_status is SAVED with a heart",
+        "Shows similar artists for each anchor"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "[Simulated state] Interview: winding down, calm and sad, 2 hours, mostly familiar. Kept tracks: Radiohead - Fake Plastic Trees, Radiohead - Exit Music (For A Film), The Goo Goo Dolls - Iris. Seed playlists picked: Late nights, Rainy days. Now generate it.",
+      "expected_output": "One generate_playlist call whose description follows the template, uses 120 minutes, names both seed playlists and the kept tracks, and adds no constraints the user did not give.",
+      "files": [],
+      "expectations": [
+        "Makes exactly one generate_playlist call",
+        "Description says about 120 minutes, not 2 hours",
+        "Description names the playlists Late nights and Rainy days",
+        "Description names Fake Plastic Trees, Exit Music and Iris with their artists",
+        "Description ends with 'Mostly songs and artists I already listen to.'",
+        "Description adds no decade, language, explicitness or genre constraint"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "[Simulated state] A playlist was just generated. User: 'nice, but can it be more upbeat?'",
+      "expected_output": "Changes only the mood part of the previous description and calls generate_playlist again.",
+      "files": [],
+      "expectations": [
+        "Keeps the length, seeds, vibe list and familiarity line from the previous description",
+        "Changes the mood wording to something more upbeat",
+        "Calls generate_playlist once more"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "[Simulated state] No Spotify tools are available in this session. User: 'make me a road trip playlist'",
+      "expected_output": "Explains that the Spotify connector is needed and how to connect it, then stops instead of inventing a playlist.",
+      "files": [],
+      "expectations": [
+        "Tells the user to connect the Spotify connector",
+        "Does not invent a track list or a fake playlist link"
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "[Simulated state] ~/.claude/spotify-taste.md lists anchors Them & I and Dead Calm and seed playlist new yearns. User: 'playlist for tonight please'",
+      "expected_output": "Reads the profile and offers its anchors and seed playlist as defaults for the user to confirm, instead of asking from scratch or using them silently.",
+      "files": [],
+      "expectations": [
+        "Offers Them & I and Dead Calm as default anchors",
+        "Offers new yearns as a seed playlist",
+        "Asks the user to confirm before using them"
+      ]
+    }
+  ]
+}
