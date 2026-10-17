@@ -4,10 +4,10 @@
     {
       "id": 1,
       "prompt": "make me a playlist",
-      "expected_output": "Asks the four interview questions in one round, then asks for 2 to 4 anchor artists. Makes no generate_playlist call yet.",
+      "expected_output": "Asks the interview questions in one round, then asks for anchor artists only if start from is artists or a mix. Makes no generate_playlist call yet.",
       "files": [],
       "expectations": [
-        "Asks about occasion, mood or energy, length, and familiar vs discovery in a single message",
+        "Asks about occasion, mood, length, familiarity and start from in a single message",
         "Does not call generate_playlist before the user has answered",
         "Does not ask the user to pick genres"
       ]
@@ -69,6 +69,53 @@
         "Offers Them & I and Dead Calm as default anchors",
         "Offers new yearns as a seed playlist",
         "Asks the user to confirm before using them"
+      ]
+    },
+    {
+      "id": 7,
+      "prompt": "find me a few songs like what I've been listening to this week",
+      "expected_output": "Runs songs mode: searches 'my recently played tracks this week', runs a judge round, lists kept tracks with links, offers to save them, and does not call generate_playlist.",
+      "files": [],
+      "expectations": [
+        "Searches 'my recently played tracks this week' with limit 20",
+        "Shows numbered tracks with Spotify links for the user to judge",
+        "Does not call generate_playlist unless the user asks for a playlist",
+        "Calls save_to_library only for tracks the user names"
+      ]
+    },
+    {
+      "id": 8,
+      "prompt": "[Simulated state] Settings: mellow, 60 minutes, familiarity 4 (mostly new), start from this week, no seeds. Kept tracks: Slowdive - When the Sun Hits, Bon Iver - Skinny Love. Now generate it.",
+      "expected_output": "One generate_playlist call using the 'this week' source and the level 4 familiarity line, with no seed playlists clause.",
+      "files": [],
+      "expectations": [
+        "Description contains 'based on the songs I've been listening to this week'",
+        "Description ends with 'Mostly new artists I haven't heard yet.'",
+        "Description names When the Sun Hits and Skinny Love with their artists",
+        "Description has no 'my playlists' clause",
+        "Passes a language parameter"
+      ]
+    },
+    {
+      "id": 9,
+      "prompt": "[Simulated state] ~/.claude/spotify-taste.md defaults: Mode playlist, Occasion studying, Mood calm, Length 90 minutes, Familiarity 2, Start from most played, Seeds none. User: 'playlist please'",
+      "expected_output": "Uses the fast path: shows all six settings in one line and asks to confirm or change, instead of running the full interview.",
+      "files": [],
+      "expectations": [
+        "Shows the profile defaults in a single confirmation message",
+        "Does not run the full interview",
+        "After confirmation, searches 'my most played songs' for the judge round"
+      ]
+    },
+    {
+      "id": 10,
+      "prompt": "Make me a 30 minute playlist, all new artists only, based on my most played songs.",
+      "expected_output": "Maps 'all new artists only' to familiarity level 5 and does not re-ask familiarity, length or start from.",
+      "files": [],
+      "expectations": [
+        "Does not re-ask familiarity, length or start from",
+        "The final description ends with 'Only artists I haven't listened to before.'",
+        "The final description says about 30 minutes"
       ]
     }
   ]

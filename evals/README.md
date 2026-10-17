@@ -4,8 +4,8 @@ Two eval sets in the [skill-creator](https://github.com/anthropics/skills/tree/m
 
 | File | Tests | Cases |
 | --- | --- | --- |
-| [`trigger-queries.json`](trigger-queries.json) | Does the skill fire on the right requests? 10 should fire, 10 should not. The negatives are near misses: Spotify questions that are not playlist building. | 20 |
-| [`evals.json`](evals.json) | Does the flow behave? Interview, judge round, generate prompt, regenerate, missing connector, taste profile. | 6 |
+| [`trigger-queries.json`](trigger-queries.json) | Does the skill fire on the right requests? 12 should fire, 11 should not. The negatives are near misses: Spotify questions that are not playlist building. | 23 |
+| [`evals.json`](evals.json) | Does the flow behave? Interview, judge round, generate prompt, regenerate, missing connector, taste profile, songs mode, listening history, familiarity levels, fast path. | 10 |
 
 Flow evals marked `[Simulated state]` describe the conversation so far, so a case can test one step without replaying the whole flow.
 
