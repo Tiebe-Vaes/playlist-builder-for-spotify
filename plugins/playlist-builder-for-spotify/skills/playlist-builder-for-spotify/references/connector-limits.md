@@ -14,25 +14,39 @@ A query like "chill songs like Radiohead" returns only AI-generated playlists: n
 
 **Workaround:** search plain artist names ("Radiohead") to get that artist's real tracks, and "artists similar to Radiohead" to get real artists. Run one search per anchor, in parallel.
 
-## 3. Playlists can be listed, not read
+## 3. Listening history comes back as real tracks
+
+History queries are the exception to limit 2. Tested live in October 2026:
+
+| Query | Returns |
+| --- | --- |
+| `my recently played tracks this week` | Up to 20 real tracks the user played recently |
+| `my most played songs` | Up to 20 real tracks from the user's top listening |
+
+Set `limit: 20` to get the full list. A result can also say that some tracks were filtered for licensing.
+
+**Use:** these feed the judge round when the user wants to start from their own listening instead of named artists. The generator also accepts "based on the songs I've been listening to this week" (a test call returned a playlist titled "Your Weekly Listening Mix"), but Claude cannot check which tracks it picked. Naming the kept history tracks in the description makes the result predictable.
+
+## 4. Playlists can be listed, not read
 
 Searching "my playlists" returns the user's playlists with name and description. The connector cannot return the tracks inside them.
 
 **Workaround:** name the playlists in the description ("based on my playlists Late nights, Rainy days"). The generator can see them even though Claude cannot.
 
-## 4. Library status is visible
+## 5. Library status is visible
 
 Search results carry `library_status`. `SAVED` means the user already saved the track or artist.
 
 **Use:** mark saved items ♥ in the judge round. It shows the user at a glance what they already know.
 
-## 5. What is missing
+## 6. What is missing
 
 - No playback control: Claude cannot start, pause or queue music.
-- No adding tracks to an existing playlist, and no reading a playlist's tracks.
-- `generate_playlist` needs Spotify Premium. On a free account it fails.
+- No adding tracks to an existing playlist, and no reading a playlist's tracks. Generated playlists report `can_edit_items: true`, but no connector tool can add items.
+- `generate_playlist` needs Spotify Premium. On a free account it creates nothing and returns `NOT_SUBSCRIBED` or `PREMIUM_REQUIRED_FALLBACK`.
+- `search` and `generate_playlist` both require a `language` parameter (a BCP 47 locale such as `en-US`), and the prompt must stay in the user's own language.
 - The generated playlist is private and not saved. The user saves it in Spotify, or Claude uses `save_to_library` when asked.
 
 ## Why not the Spotify Web API?
 
-The Web API can read playlist contents and add exact tracks, which would remove limits 1 and 3. It also needs a Spotify developer app and OAuth per user, and Spotify has deprecated the endpoints that would help most here (audio features, recommendations, related artists). A Web API fallback is on the roadmap: see [`docs/web-api-fallback.md`](https://github.com/Tiebe-Vaes/playlist-builder-for-spotify/blob/main/docs/web-api-fallback.md).
+The Web API can read playlist contents and add exact tracks, which would remove limits 1 and 4. It also needs a Spotify developer app and OAuth per user, and Spotify has deprecated the endpoints that would help most here (audio features, recommendations, related artists). A Web API fallback is on the roadmap: see [`docs/web-api-fallback.md`](https://github.com/Tiebe-Vaes/playlist-builder-for-spotify/blob/main/docs/web-api-fallback.md).
