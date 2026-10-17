@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Spotify connector problems
+    url: https://support.claude.com
+    about: Connector login or availability issues belong with Claude support, not this repo.

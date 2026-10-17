@@ -1,0 +1,41 @@
+name: Bug report
+description: The skill or the connector did something unexpected
+labels: [bug]
+body:
+  - type: dropdown
+    id: client
+    attributes:
+      label: Where did you run it?
+      options:
+        - Claude Code
+        - claude.ai
+        - Claude desktop app
+    validations:
+      required: true
+  - type: dropdown
+    id: step
+    attributes:
+      label: Which step went wrong?
+      options:
+        - Skill did not trigger / triggered when it should not
+        - Interview
+        - Anchors
+        - Judge round (search)
+        - Seed playlists
+        - Generate
+        - Wrap-up
+        - Taste profile
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened, and what did you expect?
+      description: Include the search query or generate_playlist description if you can see it. Remove anything personal.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Skill version
+      placeholder: "0.1.0"
