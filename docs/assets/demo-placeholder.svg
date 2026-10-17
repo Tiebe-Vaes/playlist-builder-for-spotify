@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="200" viewBox="0 0 800 200" role="img" aria-label="Demo GIF coming soon">
+  <rect width="800" height="200" rx="12" fill="#121212"/>
+  <text x="400" y="95" fill="#1ed760" font-family="system-ui, sans-serif" font-size="28" font-weight="700" text-anchor="middle">Demo GIF coming soon</text>
+  <text x="400" y="130" fill="#b3b3b3" font-family="system-ui, sans-serif" font-size="16" text-anchor="middle">Interview, judge round, seeds, generate</text>
+</svg>
