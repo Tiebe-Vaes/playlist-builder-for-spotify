@@ -1,6 +1,6 @@
 # Interview questions
 
-One round, asked together. Each question offers 3 or 4 options; the user can always type their own answer. Skip any question the request already answered ("a 2 hour study playlist" answers occasion and length).
+Ask only the settings that neither the request nor the taste profile fills, in one round. Each question offers 3 or 4 options; the user can always type their own answer. A request like "a 2 hour study playlist" already fills occasion and length.
 
 ## Occasion
 
@@ -11,7 +11,7 @@ What is the playlist for?
 - Winding down or sleep
 - Workout or party
 
-## Mood and energy
+## Mood
 
 What should it feel like?
 
@@ -31,13 +31,26 @@ How long should it run?
 
 Write the answer down in minutes for the generate step.
 
-## Familiar vs discovery
+## Familiarity
 
-How much should be new to you?
+How much should be new to you? Five levels; offer them as a list from 1 to 5.
 
-- Mostly songs I already know
-- A mix of known and new
-- Mostly new artists
+1. Only songs I already know
+2. Mostly songs I know
+3. Half known, half new
+4. Mostly new artists
+5. Only new artists
+
+Ask-user tools often allow only 4 options. Then offer 1, 2, 4 and 5; the user can type "half and half" for level 3.
+
+## Start from
+
+What should the playlist grow from?
+
+- Artists I'll name
+- What I've listened to this week
+- My most played songs
+- A mix of artists and this week
 
 ## Follow-ups
 

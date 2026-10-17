@@ -5,19 +5,41 @@
 ## Template
 
 ```text
-Create a <mood> playlist of about <N> minutes based on my taste and my playlists <A>, <B>. Vibe like <Artist> (<kept track>, <kept track>), <Artist> (<kept track>). <familiarity line>
+Create a <mood> playlist of about <N> minutes based on <source>. Vibe like <Artist> (<kept track>, <kept track>), <Artist> (<kept track>). <familiarity line>
 ```
 
 Why each part is there:
 
 | Part | Why |
 | --- | --- |
-| `<mood>` | The user's own words from the interview. The generator reads adjectives well. |
-| `about <N> minutes` | Minutes are unambiguous. "2 hours" sometimes comes back short. |
-| `based on my taste` | Tells the generator to lean on the user's listening history. |
-| `my playlists <A>, <B>` | The only way to use playlists the connector cannot read. |
-| `Vibe like <Artist> (<track>)` | Kept tracks from the judge round pin the sound much better than genre names. |
-| familiarity line | Steers the familiar vs new balance. |
+| `<mood>` | The user's own words from the interview. |
+| `about <N> minutes` | Minutes are unambiguous, and the connector's own instructions ask for them. |
+| `<source>` | Tells the generator what to grow from. See the table below. |
+| `Vibe like <Artist> (<track>)` | Kept tracks from the judge round pin the sound much better than genre names. History tracks go here too. |
+| familiarity line | Steers the known vs new balance. |
+
+## Source
+
+Pick by the Start from setting, then append the seeds when there are any: `… and my playlists <A>, <B>`.
+
+| Start from | `<source>` |
+| --- | --- |
+| artists | `my taste` |
+| this week | `the songs I've been listening to this week` |
+| most played | `my most played songs` |
+| a mix | `my taste and the songs I've been listening to this week` |
+
+## Familiarity line
+
+| Level | Line |
+| --- | --- |
+| 1 all known | `Only songs I already listen to.` |
+| 2 mostly known | `Mostly songs and artists I already listen to.` |
+| 3 half and half | `Half songs I already listen to, half new artists.` |
+| 4 mostly new | `Mostly new artists I haven't heard yet.` |
+| 5 all new | `Only artists I haven't listened to before.` |
+
+Claude cannot read the generated playlist, so it cannot check the split. Never promise an exact share in the wrap-up.
 
 ## Examples
 
@@ -31,6 +53,12 @@ Discovery, no seeds:
 
 ```text
 Create an upbeat, warm playlist of about 45 minutes based on my taste. Vibe like Phoebe Bridgers (Kyoto), boygenius (Not Strong Enough). Mostly new artists I haven't heard yet.
+```
+
+This week, mostly known:
+
+```text
+Create a mellow playlist of about 60 minutes based on the songs I've been listening to this week. Vibe like Slowdive (When the Sun Hits), Bon Iver (Skinny Love). Mostly songs and artists I already listen to.
 ```
 
 Mix:
@@ -61,5 +89,5 @@ Change only the part of the description the tweak touches:
 | "more upbeat" | Change `<mood>`. |
 | "drop <artist>" | Remove that artist from the vibe list, add "No <artist>." at the end. |
 | "longer" / "shorter" | Change `<N>`. |
-| "more new stuff" | Change the familiarity line. |
+| "more new stuff" / "more songs I know" | Move the familiarity level one step and swap the line. |
 | "more like <track>" | Add the track to its artist in the vibe list. |
