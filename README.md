@@ -17,13 +17,17 @@ The Spotify connector in Claude can generate a playlist, but only from a single 
 
 ```mermaid
 flowchart TD
-    A([You: make me a playlist]) --> T[Read taste profile, if any]
-    T --> I[1. Interview<br/>occasion, mood, length, familiar vs new] --> N[2. Anchors<br/>2 to 4 artists that nail the vibe]
-    N --> J[3. Judge round<br/>search each anchor, show numbered tracks<br/>and similar artists, you keep the best]
-    J --> S[4. Seeds<br/>pick matching playlists from your library]
+    A([You: make me a playlist]) --> T[Read taste profile defaults, if any]
+    T --> I[1. Interview<br/>only the settings still missing,<br/>or one-line confirm on the fast path]
+    I --> N[2. Anchors<br/>2 to 4 artists, when starting from artists]
+    I -- this week / most played --> J
+    N --> J[3. Judge round<br/>real tracks from your anchors or your history,<br/>you keep the best]
+    J -- songs mode --> L[4b. Songs<br/>list with links, save picks to your library]
+    J --> S[4a. Seeds<br/>pick matching playlists from your library]
+    L -. turn into a playlist .-> S
     S --> G[5. Generate<br/>one generate_playlist call<br/>with a templated description]
     G --> W[6. Wrap up<br/>link, regenerate with a tweak, or save]
-    W -- more upbeat, drop X --> G
+    W -- more upbeat, more new stuff --> G
 ```
 
 The description it sends looks like this:
@@ -58,10 +62,24 @@ Ask for a playlist in your own words:
 - "Make me a playlist for studying tonight."
 - "Build a 3 hour road trip mix, mostly stuff I know."
 - "Remake that last playlist but more upbeat."
+- "Find me a few songs like what I've been listening to this week."
+
+### Settings
+
+Every run uses six settings. Say them in your request, set defaults in your taste profile, or answer them in the interview.
+
+| Setting | Options |
+| --- | --- |
+| Mode | playlist, or songs (find songs, save the ones you like, no playlist) |
+| Occasion and mood | your own words |
+| Length | any, in minutes or hours |
+| Familiarity | 1 all known · 2 mostly known · 3 half and half · 4 mostly new · 5 all new |
+| Start from | artists you name · what you played this week · your most played · a mix |
+| Seeds | your own playlists, by name |
 
 ### Taste profile (optional)
 
-Save your usual artists and playlists once, and the skill offers them as defaults every time. Copy [`taste.example.md`](plugins/playlist-builder-for-spotify/skills/playlist-builder-for-spotify/taste.example.md) to `~/.claude/spotify-taste.md` and fill it in. On claude.ai, paste it into your project knowledge instead. The skill also offers to write the file for you after your first playlist.
+Save your defaults, usual artists and playlists once. When the defaults cover every setting, the skill skips the interview and asks you to confirm them in one line. Copy [`taste.example.md`](plugins/playlist-builder-for-spotify/skills/playlist-builder-for-spotify/taste.example.md) to `~/.claude/spotify-taste.md` and fill it in. On claude.ai, paste it into your project knowledge instead. The skill also offers to write the file for you after your first playlist.
 
 ## Limitations
 
@@ -70,10 +88,10 @@ These come from the Spotify connector, not the skill. The full write-up with wor
 | Limit | Workaround in the skill |
 | --- | --- |
 | One text description builds the whole playlist; no hand-placed tracks | Every round exists to write a better description |
-| Vibe searches return only AI-made playlists, no tracks | Search plain artist names and "artists similar to X" |
+| Vibe searches return only AI-made playlists, no tracks | Search plain artist names, "artists similar to X", or your listening history, which all return real tracks |
 | Your playlists can be listed but not read | Name them in the description as seeds |
 | No playback control, no adding to existing playlists | Out of scope for now; see the roadmap |
-| Generating needs Spotify Premium | Clear error message on free accounts |
+| Generating needs Spotify Premium | Clear message on free accounts, plus songs mode as a fallback |
 
 ## Repository layout
 
