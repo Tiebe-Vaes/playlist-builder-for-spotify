@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "Claude skill that builds personal Spotify playlists through a short interview and a track-judging round.",
-    "version": "0.1.0"
+    "version": "0.2.0"
   },
   "plugins": [
     {
@@ -14,7 +14,12 @@
       "source": "./plugins/playlist-builder-for-spotify",
       "description": "Conversational Spotify playlist builder: interview, anchor artists, judge round, seed playlists, then one well-written generate_playlist call.",
       "category": "productivity",
-      "keywords": ["spotify", "music", "playlist", "skill"]
+      "keywords": [
+        "spotify",
+        "music",
+        "playlist",
+        "skill"
+      ]
     }
   ]
 }
