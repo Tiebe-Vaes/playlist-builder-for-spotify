@@ -1,0 +1,15 @@
+# Build output
+dist/
+*.zip
+
+# Personal taste profiles never belong in the repo
+spotify-taste.md
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Node (scripts/)
+node_modules/

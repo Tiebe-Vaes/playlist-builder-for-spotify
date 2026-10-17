@@ -1,0 +1,13 @@
+{
+  "name": "playlist-builder-for-spotify",
+  "version": "0.1.0",
+  "description": "Conversational Spotify playlist builder for Claude. Interviews you, lets you judge sample tracks, seeds from your own playlists, then writes one precise generate_playlist prompt.",
+  "author": {
+    "name": "Tiebe Vaes",
+    "url": "https://github.com/Tiebe-Vaes"
+  },
+  "homepage": "https://github.com/Tiebe-Vaes/playlist-builder-for-spotify",
+  "repository": "https://github.com/Tiebe-Vaes/playlist-builder-for-spotify",
+  "license": "MIT",
+  "keywords": ["spotify", "music", "playlist", "skill"]
+}
