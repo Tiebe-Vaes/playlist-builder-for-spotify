@@ -4,6 +4,24 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-10-19
+
+### Added
+
+- Start from one song you can't stop playing.
+- Merge mode: combine your playlists, with keep rules such as "drop songs I'm sick of" and "keep my favourites".
+- Arc (steady, build up, wind down, rise and fall) and popularity (hits, mix, deep cuts) settings.
+- Quick or full interview depth, settable as a profile default.
+- Playlist research notes in `docs/research/playlist-interview.md`.
+
+### Changed
+
+- Seed playlists are picked from a list of your own playlists, with followed ones labelled and duplicate names flagged.
+- Descriptions open with the seed playlists and name one track per artist, after a live test where one artist took over the playlist.
+- Every playlist caps songs per artist and keeps the same artist from playing twice in a row, without asking.
+- The judge round alternates artists and skips artists that can't play in your region.
+- The wrap-up says a generated playlist won't show up in your library until it's saved, and offers to save it.
+
 ## [0.2.0] - 2026-10-17
 
 ### Added
@@ -29,6 +47,7 @@ All notable changes to this project are documented here. The format follows [Kee
 - CI: plugin validation, JSON, markdown lint, link check, eval and version check.
 - Release workflow that attaches a claude.ai-ready zip to each GitHub Release.
 
-[Unreleased]: https://github.com/Tiebe-Vaes/playlist-builder-for-spotify/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/Tiebe-Vaes/playlist-builder-for-spotify/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/Tiebe-Vaes/playlist-builder-for-spotify/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/Tiebe-Vaes/playlist-builder-for-spotify/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/Tiebe-Vaes/playlist-builder-for-spotify/releases/tag/v0.1.0
