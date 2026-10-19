@@ -117,6 +117,75 @@
         "The final description ends with 'Only artists I haven't listened to before.'",
         "The final description says about 30 minutes"
       ]
+    },
+    {
+      "id": 11,
+      "prompt": "make me a cozy evening playlist from Nude by Radiohead, about 90 minutes",
+      "expected_output": "Starts from one song: searches 'songs similar to Nude by Radiohead', 'Radiohead' and 'artists similar to Radiohead' in parallel, then shows a judge round that alternates artists.",
+      "files": [],
+      "expectations": [
+        "Runs the similar-songs, plain-artist and similar-artists searches",
+        "Never lists two tracks by the same artist next to each other in the judge round",
+        "Leaves out artists whose playback status is NOT_PLAYABLE",
+        "Does not re-ask length, occasion or mood"
+      ]
+    },
+    {
+      "id": 12,
+      "prompt": "[Simulated state] Settings: cozy evening, 105 minutes, start from Nude by Radiohead, steady, popularity mix, familiarity 2. Kept: Radiohead - Reckoner, Radiohead - All I Need, Radiohead - Let Down, The Smiths - There Is a Light That Never Goes Out, Slowdive - When the Sun Hits, Jeff Buckley - So Real. Seeds: Late nights, Rainy days. Now generate it.",
+      "expected_output": "Writes a description that opens with the seed playlists as the main source, names at most one track per artist, and includes the artist cap line.",
+      "files": [],
+      "expectations": [
+        "Description contains 'built mainly from songs in my playlists Late nights and Rainy days'",
+        "Description names at most one Radiohead track besides the Nude start line",
+        "Description contains 'At most 3 songs per artist, and never two songs by the same artist in a row.'",
+        "Description contains 'Keep a steady vibe.' and 'Mix well-known songs with deep cuts.'"
+      ]
+    },
+    {
+      "id": 13,
+      "prompt": "merge my playlists Late nights and Rainy days into one, about 90 minutes, drop the songs I'm sick of and keep my favourites",
+      "expected_output": "Runs merge mode: confirms both playlists exist via 'my playlists', says honestly that the generator picks the songs, and uses the merge template.",
+      "files": [],
+      "expectations": [
+        "Searches 'my playlists' to find both playlists",
+        "Tells the user Claude cannot read the playlists, so the generator picks the songs",
+        "Description contains 'merges my playlists Late nights and Rainy days'",
+        "Description contains 'Leave out songs I've played a lot lately.' and 'Keep the songs I've liked.'"
+      ]
+    },
+    {
+      "id": 14,
+      "prompt": "[Simulated state] ~/.claude/spotify-taste.md has Depth: quick and no other defaults. User: 'playlist please'",
+      "expected_output": "Asks only the three quick questions (start from, occasion and mood, length) in one round, and does not ask about familiarity, arc, popularity or artist spread.",
+      "files": [],
+      "expectations": [
+        "Asks start from, occasion and mood, and length in one message",
+        "Does not ask about familiarity, arc or popularity",
+        "Never asks about artist spread"
+      ]
+    },
+    {
+      "id": 15,
+      "prompt": "[Simulated state] generate_playlist just returned the playlist 'Cozy Evening Echoes'.",
+      "expected_output": "Wrap-up gives the link, says it won't show up in the Spotify library until saved, and asks whether to save it, without saving unasked.",
+      "files": [],
+      "expectations": [
+        "Says the playlist won't show up in the library until it's saved",
+        "Asks before calling save_to_library",
+        "Does not promise an exact familiarity split or artist cap"
+      ]
+    },
+    {
+      "id": 16,
+      "prompt": "[Simulated state] Step 4a: 'my playlists' returned three playlists named '.', plus Photo album (own) and acoustic and chill (followed).",
+      "expected_output": "Lists own playlists first, labels the followed one, and warns that the three '.' playlists can't be told apart in a description.",
+      "files": [],
+      "expectations": [
+        "Shows Photo album before acoustic and chill",
+        "Labels acoustic and chill as followed",
+        "Warns that playlists named '.' are ambiguous"
+      ]
     }
   ]
 }

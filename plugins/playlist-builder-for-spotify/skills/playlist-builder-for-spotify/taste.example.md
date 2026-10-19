@@ -9,12 +9,16 @@ interview and asks you to confirm them in one line.
 
 ## Defaults
 
-- Mode: playlist                <!-- playlist | songs -->
+- Mode: playlist                <!-- playlist | songs | merge -->
+- Depth: quick                  <!-- quick | full -->
 - Occasion: winding down
 - Mood: calm, a bit sad
 - Length: 60 minutes
 - Familiarity: 2                <!-- 1 all known | 2 mostly known | 3 half and half | 4 mostly new | 5 all new -->
-- Start from: a mix             <!-- artists | this week | most played | a mix -->
+- Start from: a mix             <!-- one song | artists | this week | most played | a mix -->
+- Arc: steady                   <!-- steady | build up | wind down | rise and fall -->
+- Popularity: mix               <!-- hits | mix | deep cuts -->
+- Max per artist: 3             <!-- the silent default; change only if you want a different cap -->
 
 ## Vibe
 

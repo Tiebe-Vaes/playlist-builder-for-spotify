@@ -5,29 +5,52 @@
 ## Template
 
 ```text
-Create a <mood> playlist of about <N> minutes based on <source>. Vibe like <Artist> (<kept track>, <kept track>), <Artist> (<kept track>). <familiarity line>
+Create a <mood> playlist of about <N> minutes, <source>. <start line> Vibe like <track> by <artist>, <track> by <artist>, <artist>. <arc line> <popularity line> At most 3 songs per artist, and never two songs by the same artist in a row. <familiarity line>
 ```
 
-Why each part is there:
+Leave a slot out when it is empty. Fill each slot from the tables below.
 
-| Part | Why |
-| --- | --- |
-| `<mood>` | The user's own words from the interview. |
-| `about <N> minutes` | Minutes are unambiguous, and the connector's own instructions ask for them. |
-| `<source>` | Tells the generator what to grow from. See the table below. |
-| `Vibe like <Artist> (<track>)` | Kept tracks from the judge round pin the sound much better than genre names. History tracks go here too. |
-| familiarity line | Steers the known vs new balance. |
+## Rules
+
+These come from live tests. A playlist scored 2/10 when the description broke them.
+
+- **Seeds first.** When the user picked seed playlists, `<source>` names them as the main source. Seeds in a trailing "and my playlists …" clause were ignored.
+- **One named track per artist, about 5 in total.** A description that named five Radiohead tracks produced a playlist titled "…Radiohead Vibe" with one artist dominating. Pick the kept tracks that cover the most different artists. Similar artists the user picked go in by name only.
+- **Minutes.** `<N>` is always minutes; the connector's own instructions ask for them.
+- **Nothing extra.** Decades, languages, "no explicit" and genres go in only when the user said them, in their words.
 
 ## Source
 
-Pick by the Start from setting, then append the seeds when there are any: `… and my playlists <A>, <B>`.
-
-| Start from | `<source>` |
+| Situation | `<source>` |
 | --- | --- |
-| artists | `my taste` |
-| this week | `the songs I've been listening to this week` |
-| most played | `my most played songs` |
-| a mix | `my taste and the songs I've been listening to this week` |
+| seed playlists picked | `built mainly from songs in my playlists <A>, <B> and <C>` |
+| no seeds, start from artists or one song | `based on my taste` |
+| no seeds, this week | `based on the songs I've been listening to this week` |
+| no seeds, most played | `based on my most played songs` |
+| no seeds, a mix | `based on my taste and the songs I've been listening to this week` |
+
+With seeds and a history start, add the history after the seeds: `built mainly from songs in my playlists <A>, <B> and the songs I've been listening to this week`.
+
+## Start line
+
+Only for start from **one song**: `Use <song> by <artist> as the starting point.` The song's artist still counts towards the one-track-per-artist rule.
+
+## Arc line
+
+| Arc | Line |
+| --- | --- |
+| steady | `Keep a steady vibe.` |
+| build up | `Start calm and slowly build up energy.` |
+| wind down | `Start with more energy and slowly wind down.` |
+| rise and fall | `Build up to a peak in the middle, then wind down.` |
+
+## Popularity line
+
+| Popularity | Line |
+| --- | --- |
+| hits | `Mostly well-known songs.` |
+| mix | `Mix well-known songs with deep cuts.` |
+| deep cuts | `Mostly deep cuts and lesser-known songs, avoid the obvious hits.` |
 
 ## Familiarity line
 
@@ -39,46 +62,40 @@ Pick by the Start from setting, then append the seeds when there are any: `… a
 | 4 mostly new | `Mostly new artists I haven't heard yet.` |
 | 5 all new | `Only artists I haven't listened to before.` |
 
-Claude cannot read the generated playlist, so it cannot check the split. Never promise an exact share in the wrap-up.
+Claude cannot read the generated playlist, so it cannot check the split, the arc or the artist cap. Never promise them in the wrap-up.
+
+## Merge template
+
+```text
+Create a playlist of about <N> minutes that merges my playlists <A> and <B>. <keep lines> At most 3 songs per artist, and never two songs by the same artist in a row.
+```
+
+| Keep rule | Line |
+| --- | --- |
+| fits a vibe | `Keep only the songs that fit a <vibe> vibe.` |
+| mostly from one playlist | `Take most songs from <A>.` |
+| drop songs they're sick of | `Leave out songs I've played a lot lately.` |
+| keep their favourites | `Keep the songs I've liked.` |
 
 ## Examples
 
-Familiar, with seeds:
+Seeds, one song, steady (the revised test description):
 
 ```text
-Create a calm, sad acoustic playlist of about 120 minutes based on my taste and my playlists Late nights, Rainy days. Vibe like The Goo Goo Dolls (Iris), Radiohead (Fake Plastic Trees, Exit Music). Mostly songs and artists I already listen to.
+Create a cozy evening playlist of about 105 minutes, built mainly from songs in my playlists Late nights and Rainy days. Use Nude by Radiohead as the starting point. Vibe like When the Sun Hits by Slowdive, There Is a Light That Never Goes Out by The Smiths, So Real by Jeff Buckley, bôa. Keep a steady vibe. Mix well-known songs with deep cuts. At most 3 songs per artist, and never two songs by the same artist in a row. Mostly songs and artists I already listen to.
 ```
 
-Discovery, no seeds:
+This week, no seeds, build up:
 
 ```text
-Create an upbeat, warm playlist of about 45 minutes based on my taste. Vibe like Phoebe Bridgers (Kyoto), boygenius (Not Strong Enough). Mostly new artists I haven't heard yet.
+Create a mellow playlist of about 60 minutes, based on the songs I've been listening to this week. Vibe like When the Sun Hits by Slowdive, Skinny Love by Bon Iver. Start calm and slowly build up energy. At most 3 songs per artist, and never two songs by the same artist in a row. Mostly songs and artists I already listen to.
 ```
 
-This week, mostly known:
+Merge:
 
 ```text
-Create a mellow playlist of about 60 minutes based on the songs I've been listening to this week. Vibe like Slowdive (When the Sun Hits), Bon Iver (Skinny Love). Mostly songs and artists I already listen to.
+Create a playlist of about 90 minutes that merges my playlists Late nights and Rainy days. Leave out songs I've played a lot lately. Keep the songs I've liked. At most 3 songs per artist, and never two songs by the same artist in a row.
 ```
-
-Mix:
-
-```text
-Create a high-energy workout playlist of about 60 minutes based on my taste and my playlist Gym. Vibe like Fred again.. (Delilah (pull me out of this)), Bicep (Glue). Half songs I already listen to, half new artists.
-```
-
-## Keep it out
-
-Each of these looks harmless but can change the result in a way the user did not ask for:
-
-| Added phrase | What it does |
-| --- | --- |
-| "from the 90s and 2000s" | Can drop newer tracks, including the user's kept ones. |
-| "no explicit lyrics" | Can cut a large part of some genres. |
-| "only acoustic" | Can drop kept tracks that have drums. |
-| A genre the user never said | Pulls the playlist towards genre staples instead of the user's artists. |
-
-Put a constraint in only when the user said it, in their words.
 
 ## Regenerate tweaks
 
@@ -86,8 +103,9 @@ Change only the part of the description the tweak touches:
 
 | User says | Edit |
 | --- | --- |
-| "more upbeat" | Change `<mood>`. |
+| "more upbeat" | Change `<mood>`, or the arc line. |
 | "drop <artist>" | Remove that artist from the vibe list, add "No <artist>." at the end. |
 | "longer" / "shorter" | Change `<N>`. |
 | "more new stuff" / "more songs I know" | Move the familiarity level one step and swap the line. |
-| "more like <track>" | Add the track to its artist in the vibe list. |
+| "less obvious" | Move popularity towards deep cuts. |
+| "too much <artist>" | Lower the cap for that artist: "At most 1 song by <artist>." |

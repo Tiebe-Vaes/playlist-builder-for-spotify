@@ -1,26 +1,34 @@
 # Interview questions
 
-Ask only the settings that neither the request nor the taste profile fills, in one round. Each question offers 3 or 4 options; the user can always type their own answer. A request like "a 2 hour study playlist" already fills occasion and length.
+Ask only the settings that neither the request nor the taste profile fills, for the chosen depth, in one round. Each question offers 3 or 4 options; the user can always type their own answer. A request like "a 2 hour study playlist" already fills occasion and length.
 
-## Occasion
+## Depth
 
-What is the playlist for?
+Ask first, only when the profile has no `Depth` default.
 
-- Studying or focus
-- Commute or road trip
-- Winding down or sleep
-- Workout or party
+How many questions do you want?
 
-## Mood
+- Quick: 3 questions
+- Full: about 6 questions, for a more exact result
 
-What should it feel like?
+## Quick and full
 
-- Calm and mellow
-- Sad or nostalgic
-- Upbeat and warm
-- High energy
+### Start from
 
-## Length
+What should the playlist grow from?
+
+- One song I can't stop playing
+- Artists I'll name
+- What I've listened to this week
+- My most played songs
+
+"A mix of artists and this week" is the fifth option; offer it when the ask-user tool allows 5, otherwise accept it typed.
+
+### Occasion and mood
+
+What's it for, and what should it feel like? Free text, with examples: "late night walk, sad but warm", "gym, high energy".
+
+### Length
 
 How long should it run?
 
@@ -31,7 +39,9 @@ How long should it run?
 
 Write the answer down in minutes for the generate step.
 
-## Familiarity
+## Full only
+
+### Familiarity
 
 How much should be new to you? Five levels; offer them as a list from 1 to 5.
 
@@ -43,14 +53,26 @@ How much should be new to you? Five levels; offer them as a list from 1 to 5.
 
 Ask-user tools often allow only 4 options. Then offer 1, 2, 4 and 5; the user can type "half and half" for level 3.
 
-## Start from
+### Arc
 
-What should the playlist grow from?
+What shape should it have?
 
-- Artists I'll name
-- What I've listened to this week
-- My most played songs
-- A mix of artists and this week
+- Steady vibe
+- Build up
+- Wind down
+- Rise and fall
+
+### Popularity
+
+Hits or deep cuts?
+
+- Mostly hits
+- A mix
+- Mostly deep cuts
+
+## Not asked
+
+Artist spread is a silent default: at most 3 songs per artist, never two in a row. Live testing showed users expect it without being asked. Change it only when the user brings it up.
 
 ## Follow-ups
 

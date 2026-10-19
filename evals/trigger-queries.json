@@ -11,6 +11,8 @@
   { "query": "make a 45 minute focus playlist from my own playlists", "should_trigger": true },
   { "query": "find me a few new songs like the stuff I've been playing all week", "should_trigger": true },
   { "query": "make a playlist out of what I listened to this week, but with mostly new artists", "should_trigger": true },
+  { "query": "I can't stop playing Nude by Radiohead, make me a playlist around it", "should_trigger": true },
+  { "query": "merge my playlists Late nights and Rainy days but leave out songs I'm sick of", "should_trigger": true },
   { "query": "what song is playing right now on my spotify?", "should_trigger": false },
   { "query": "save this album to my library", "should_trigger": false },
   { "query": "who wrote the lyrics of Fake Plastic Trees?", "should_trigger": false },
@@ -21,5 +23,6 @@
   { "query": "explain how spotify's recommendation algorithm works", "should_trigger": false },
   { "query": "make a youtube playlist of cooking tutorials", "should_trigger": false },
   { "query": "list the tracks on OK Computer", "should_trigger": false },
-  { "query": "show me my spotify listening stats for this year", "should_trigger": false }
+  { "query": "show me my spotify listening stats for this year", "should_trigger": false },
+  { "query": "delete my old playlists from 2019", "should_trigger": false }
 ]

@@ -27,11 +27,33 @@ Set `limit: 20` to get the full list. A result can also say that some tracks wer
 
 **Use:** these feed the judge round when the user wants to start from their own listening instead of named artists. The generator also accepts "based on the songs I've been listening to this week" (a test call returned a playlist titled "Your Weekly Listening Mix"), but Claude cannot check which tracks it picked. Naming the kept history tracks in the description makes the result predictable.
 
+### Similar songs and discovery
+
+Tested live in October 2026:
+
+| Query | Returns |
+| --- | --- |
+| `songs similar to <song> by <artist>` | Real tracks, but unreliable: 7 in one test, 1 in the next, mostly ones the user already saved |
+| `new songs I haven't heard similar to <song>` | Only an AI-made playlist (the vibe-query trap) |
+| `artists similar to <artist>` | Real artists. Some carry `playback.status: NOT_PLAYABLE` with `LICENSOR_RESTRICTED`; skip those |
+
+**Use:** back "songs similar to" with plain-name searches of the song's artist and of similar artists. For discovery, search the unsaved similar artists by plain name.
+
 ## 4. Playlists can be listed, not read
 
 Searching "my playlists" returns the user's playlists with name and description. The connector cannot return the tracks inside them.
 
-**Workaround:** name the playlists in the description ("based on my playlists Late nights, Rainy days"). The generator can see them even though Claude cannot.
+**Workaround:** name the playlists in the description, as the main source ("built mainly from songs in my playlists Late nights and Rainy days"). In a live test, seeds in a trailing clause were ignored.
+
+The list mixes the user's own playlists with ones they follow:
+
+| Field | Own playlist | Followed playlist |
+| --- | --- | --- |
+| `library_status` | `NOT_SAVEABLE` | `SAVED` |
+| `can_edit_items` | `true` | absent |
+| creator | the user | someone else |
+
+Names are not unique. One test account had three playlists named "." and a description cannot tell those apart.
 
 ## 5. Library status is visible
 
@@ -45,7 +67,8 @@ Search results carry `library_status`. `SAVED` means the user already saved the 
 - No adding tracks to an existing playlist, and no reading a playlist's tracks. Generated playlists report `can_edit_items: true`, but no connector tool can add items.
 - `generate_playlist` needs Spotify Premium. On a free account it creates nothing and returns `NOT_SUBSCRIBED` or `PREMIUM_REQUIRED_FALLBACK`.
 - `search` and `generate_playlist` both require a `language` parameter (a BCP 47 locale such as `en-US`), and the prompt must stay in the user's own language.
-- The generated playlist is private and not saved. The user saves it in Spotify, or Claude uses `save_to_library` when asked.
+- The generated playlist is private and **not in the user's library**. In testing, the user could not find it in Spotify until it was saved. Say so in the wrap-up and offer `save_to_library` with the playlist's URI.
+- One description that names many tracks by one artist makes that artist dominate the playlist. Name one track per artist.
 
 ## Why not the Spotify Web API?
 
