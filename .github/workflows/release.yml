@@ -19,7 +19,9 @@ jobs:
         run: node scripts/check-evals.mjs "$GITHUB_REF_NAME"
       - name: Zip skill for claude.ai upload
         working-directory: plugins/playlist-builder-for-spotify/skills
-        run: zip -r "$GITHUB_WORKSPACE/playlist-builder-for-spotify.zip" playlist-builder-for-spotify
+        run: |
+          cp "$GITHUB_WORKSPACE/LICENSE" playlist-builder-for-spotify/LICENSE
+          zip -r "$GITHUB_WORKSPACE/playlist-builder-for-spotify.zip" playlist-builder-for-spotify
       - name: Extract release notes from CHANGELOG
         run: |
           version="${GITHUB_REF_NAME#v}"
