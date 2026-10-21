@@ -4,10 +4,10 @@
     {
       "id": 1,
       "prompt": "make me a playlist",
-      "expected_output": "Asks the interview questions in one round, then asks for anchor artists only if start from is artists or a mix. Makes no generate_playlist call yet.",
+      "expected_output": "Asks the three core questions plus 'Fine-tune more?' in one round, then asks for anchor artists only if start from is artists or a mix. Makes no generate_playlist call yet.",
       "files": [],
       "expectations": [
-        "Asks about occasion, mood, length, familiarity and start from in a single message",
+        "Asks about start from, occasion and mood, and length, plus whether to fine-tune, in a single message",
         "Does not call generate_playlist before the user has answered",
         "Does not ask the user to pick genres"
       ]
@@ -18,7 +18,7 @@
       "expected_output": "Skips questions the request already answers and goes straight to the judge round: parallel plain-name searches for both anchors, numbered tracks with links and saved markers, and similar-artist rows.",
       "files": [],
       "expectations": [
-        "Does not re-ask length, mood, occasion or familiarity",
+        "Does not re-ask length, mood, occasion or how new the music should be",
         "Searches 'Radiohead' and 'The Goo Goo Dolls' as plain artist names, not vibe queries like 'chill songs like Radiohead'",
         "Shows 6 to 9 numbered tracks with Spotify links",
         "Marks tracks whose library_status is SAVED with a heart",
@@ -35,7 +35,7 @@
         "Description says about 120 minutes, not 2 hours",
         "Description names the playlists Late nights and Rainy days",
         "Description names Fake Plastic Trees, Exit Music and Iris with their artists",
-        "Description ends with 'Mostly songs and artists I already listen to.'",
+        "Description ends with 'Mostly songs and artists I already listen to, plus some lesser-known songs.'",
         "Description adds no decade, language, explicitness or genre constraint"
       ]
     },
@@ -45,7 +45,7 @@
       "expected_output": "Changes only the mood part of the previous description and calls generate_playlist again.",
       "files": [],
       "expectations": [
-        "Keeps the length, seeds, vibe list and familiarity line from the previous description",
+        "Keeps the length, seeds, vibe list and adventure line from the previous description",
         "Changes the mood wording to something more upbeat",
         "Calls generate_playlist once more"
       ]
@@ -85,12 +85,12 @@
     },
     {
       "id": 8,
-      "prompt": "[Simulated state] Settings: mellow, 60 minutes, familiarity 4 (mostly new), start from this week, no seeds. Kept tracks: Slowdive - When the Sun Hits, Bon Iver - Skinny Love. Now generate it.",
-      "expected_output": "One generate_playlist call using the 'this week' source and the level 4 familiarity line, with no seed playlists clause.",
+      "prompt": "[Simulated state] Settings: mellow, 60 minutes, adventure 4 (mostly new), start from this week, no seeds. Kept tracks: Slowdive - When the Sun Hits, Bon Iver - Skinny Love. Now generate it.",
+      "expected_output": "One generate_playlist call using the 'this week' source and the level 4 adventure line, with no seed playlists clause.",
       "files": [],
       "expectations": [
         "Description contains 'based on the songs I've been listening to this week'",
-        "Description ends with 'Mostly new artists I haven't heard yet.'",
+        "Description ends with 'Mostly new artists I haven't heard yet, and lesser-known songs over the obvious hits.'",
         "Description names When the Sun Hits and Skinny Love with their artists",
         "Description has no 'my playlists' clause",
         "Passes a language parameter"
@@ -98,23 +98,23 @@
     },
     {
       "id": 9,
-      "prompt": "[Simulated state] ~/.claude/spotify-taste.md defaults: Mode playlist, Occasion studying, Mood calm, Length 90 minutes, Familiarity 2, Start from most played, Seeds none. User: 'playlist please'",
-      "expected_output": "Uses the fast path: shows all six settings in one line and asks to confirm or change, instead of running the full interview.",
+      "prompt": "[Simulated state] ~/.claude/spotify-taste.md defaults: Mode playlist, Occasion studying, Mood calm, Length 90 minutes, Adventure 2, Start from most played, Seeds none. User: 'playlist please'",
+      "expected_output": "Uses the fast path: shows the settings in one line and asks to confirm or change, instead of running the interview.",
       "files": [],
       "expectations": [
         "Shows the profile defaults in a single confirmation message",
-        "Does not run the full interview",
+        "Does not run the interview",
         "After confirmation, searches 'my most played songs' for the judge round"
       ]
     },
     {
       "id": 10,
       "prompt": "Make me a 30 minute playlist, all new artists only, based on my most played songs.",
-      "expected_output": "Maps 'all new artists only' to familiarity level 5 and does not re-ask familiarity, length or start from.",
+      "expected_output": "Maps 'all new artists only' to adventure level 5 and does not re-ask how new, length or start from.",
       "files": [],
       "expectations": [
-        "Does not re-ask familiarity, length or start from",
-        "The final description ends with 'Only artists I haven't listened to before.'",
+        "Does not re-ask how new the music should be, length or start from",
+        "The final description contains 'Only artists I haven't listened to before, mostly deep cuts.'",
         "The final description says about 30 minutes"
       ]
     },
@@ -132,14 +132,14 @@
     },
     {
       "id": 12,
-      "prompt": "[Simulated state] Settings: cozy evening, 105 minutes, start from Nude by Radiohead, steady, popularity mix, familiarity 2. Kept: Radiohead - Reckoner, Radiohead - All I Need, Radiohead - Let Down, The Smiths - There Is a Light That Never Goes Out, Slowdive - When the Sun Hits, Jeff Buckley - So Real. Seeds: Late nights, Rainy days. Now generate it.",
+      "prompt": "[Simulated state] Settings: cozy evening, 105 minutes, start from Nude by Radiohead, steady, adventure 2. Kept: Radiohead - Reckoner, Radiohead - All I Need, Radiohead - Let Down, The Smiths - There Is a Light That Never Goes Out, Slowdive - When the Sun Hits, Jeff Buckley - So Real. Seeds: Late nights, Rainy days. Now generate it.",
       "expected_output": "Writes a description that opens with the seed playlists as the main source, names at most one track per artist, and includes the artist cap line.",
       "files": [],
       "expectations": [
         "Description contains 'built mainly from songs in my playlists Late nights and Rainy days'",
         "Description names at most one Radiohead track besides the Nude start line",
         "Description contains 'At most 3 songs per artist, and never two songs by the same artist in a row.'",
-        "Description contains 'Keep a steady vibe.' and 'Mix well-known songs with deep cuts.'"
+        "Description contains 'Keep a steady vibe.' and 'Mostly songs and artists I already listen to, plus some lesser-known songs.'"
       ]
     },
     {
@@ -156,13 +156,13 @@
     },
     {
       "id": 14,
-      "prompt": "[Simulated state] ~/.claude/spotify-taste.md has Depth: quick and no other defaults. User: 'playlist please'",
-      "expected_output": "Asks only the three quick questions (start from, occasion and mood, length) in one round, and does not ask about familiarity, arc, popularity or artist spread.",
+      "prompt": "[Simulated state] ~/.claude/spotify-taste.md has 'Depth: quick' (an older profile) and no other defaults. User: 'playlist please'",
+      "expected_output": "Treats Depth: quick as Fine-tune: never. Asks only the three core questions (start from, occasion and mood, length) in one round, with no fine-tune offer and no questions about adventure, arc, songs per artist or leave out.",
       "files": [],
       "expectations": [
         "Asks start from, occasion and mood, and length in one message",
-        "Does not ask about familiarity, arc or popularity",
-        "Never asks about artist spread"
+        "Does not offer to fine-tune",
+        "Does not ask about adventure, arc, songs per artist or leave out"
       ]
     },
     {
@@ -173,7 +173,7 @@
       "expectations": [
         "Says the playlist won't show up in the library until it's saved",
         "Asks before calling save_to_library",
-        "Does not promise an exact familiarity split or artist cap"
+        "Does not promise an exact new-versus-known split or artist cap"
       ]
     },
     {
@@ -185,6 +185,30 @@
         "Shows Photo album before acoustic and chill",
         "Labels acoustic and chill as followed",
         "Warns that playlists named '.' are ambiguous"
+      ]
+    },
+    {
+      "id": 17,
+      "prompt": "[Simulated state] Settings: rainy afternoon, 60 minutes, start from artists Phoebe Bridgers and Bon Iver, no seeds. Fine-tune answers: adventure 3, songs per artist 1, leave out 'Coldplay and anything too loud'. Kept: Phoebe Bridgers - Motion Sickness, Bon Iver - Holocene. Now generate it.",
+      "expected_output": "One generate_playlist call with the 1-per-artist line, the level 3 adventure line and the leave-out line in the user's words.",
+      "files": [],
+      "expectations": [
+        "Description contains 'At most 1 song per artist.'",
+        "Description contains 'Half songs I already listen to, half new artists, with some deep cuts.'",
+        "Description contains 'Leave out Coldplay and anything too loud.'",
+        "Description does not contain 'At most 3 songs per artist'"
+      ]
+    },
+    {
+      "id": 18,
+      "prompt": "[Simulated state] No taste profile. Core answers: one song, winding down, 180 minutes, no fine-tune. Judge round shown. User: 'all of them, and I'm willing to give the unknown artists a try'",
+      "expected_output": "Keeps every shown track and similar artist, reads the hint as adventure 3 instead of the default 2, and says that change in one line before moving to seeds.",
+      "files": [],
+      "expectations": [
+        "Keeps all shown tracks and similar artists",
+        "Sets adventure to 3 (half and half)",
+        "Tells the user in one line that the adventure setting changed",
+        "Moves on to the seed playlist question"
       ]
     }
   ]

@@ -5,7 +5,7 @@
 ## Template
 
 ```text
-Create a <mood> playlist of about <N> minutes, <source>. <start line> Vibe like <track> by <artist>, <track> by <artist>, <artist>. <arc line> <popularity line> At most 3 songs per artist, and never two songs by the same artist in a row. <familiarity line>
+Create a <mood> playlist of about <N> minutes, <source>. <start line> Vibe like <track> by <artist>, <track> by <artist>, <artist>. <arc line> <artist line> <adventure line> <leave-out line>
 ```
 
 Leave a slot out when it is empty. Fill each slot from the tables below.
@@ -44,30 +44,36 @@ Only for start from **one song**: `Use <song> by <artist> as the starting point.
 | wind down | `Start with more energy and slowly wind down.` |
 | rise and fall | `Build up to a peak in the middle, then wind down.` |
 
-## Popularity line
+## Artist line
 
-| Popularity | Line |
+| Songs per artist | Line |
 | --- | --- |
-| hits | `Mostly well-known songs.` |
-| mix | `Mix well-known songs with deep cuts.` |
-| deep cuts | `Mostly deep cuts and lesser-known songs, avoid the obvious hits.` |
+| 1 | `At most 1 song per artist.` |
+| 2 or 3 | `At most <n> songs per artist, and never two songs by the same artist in a row.` |
+| no limit | `Never two songs by the same artist in a row.` |
 
-## Familiarity line
+## Adventure line
+
+One line covers both how new the music is and how far from the hits. It replaced separate familiarity and popularity settings in 0.4.0.
 
 | Level | Line |
 | --- | --- |
-| 1 all known | `Only songs I already listen to.` |
-| 2 mostly known | `Mostly songs and artists I already listen to.` |
-| 3 half and half | `Half songs I already listen to, half new artists.` |
-| 4 mostly new | `Mostly new artists I haven't heard yet.` |
-| 5 all new | `Only artists I haven't listened to before.` |
+| 1 | `Only songs I already listen to.` |
+| 2 | `Mostly songs and artists I already listen to, plus some lesser-known songs.` |
+| 3 | `Half songs I already listen to, half new artists, with some deep cuts.` |
+| 4 | `Mostly new artists I haven't heard yet, and lesser-known songs over the obvious hits.` |
+| 5 | `Only artists I haven't listened to before, mostly deep cuts.` |
+
+## Leave-out line
+
+Only when the user named something: `Leave out <their words>.` For example `Leave out Coldplay and anything too loud.`
 
 Claude cannot read the generated playlist, so it cannot check the split, the arc or the artist cap. Never promise them in the wrap-up.
 
 ## Merge template
 
 ```text
-Create a playlist of about <N> minutes that merges my playlists <A> and <B>. <keep lines> At most 3 songs per artist, and never two songs by the same artist in a row.
+Create a playlist of about <N> minutes that merges my playlists <A> and <B>. <keep lines> <artist line> <leave-out line>
 ```
 
 | Keep rule | Line |
@@ -79,16 +85,16 @@ Create a playlist of about <N> minutes that merges my playlists <A> and <B>. <ke
 
 ## Examples
 
-Seeds, one song, steady (the revised test description):
+Seeds, one song, steady, adventure 2:
 
 ```text
-Create a cozy evening playlist of about 105 minutes, built mainly from songs in my playlists Late nights and Rainy days. Use Nude by Radiohead as the starting point. Vibe like When the Sun Hits by Slowdive, There Is a Light That Never Goes Out by The Smiths, So Real by Jeff Buckley, bôa. Keep a steady vibe. Mix well-known songs with deep cuts. At most 3 songs per artist, and never two songs by the same artist in a row. Mostly songs and artists I already listen to.
+Create a cozy evening playlist of about 105 minutes, built mainly from songs in my playlists Late nights and Rainy days. Use Nude by Radiohead as the starting point. Vibe like When the Sun Hits by Slowdive, There Is a Light That Never Goes Out by The Smiths, So Real by Jeff Buckley, bôa. Keep a steady vibe. At most 3 songs per artist, and never two songs by the same artist in a row. Mostly songs and artists I already listen to, plus some lesser-known songs.
 ```
 
-This week, no seeds, build up:
+This week, no seeds, build up, 2 per artist, leave out:
 
 ```text
-Create a mellow playlist of about 60 minutes, based on the songs I've been listening to this week. Vibe like When the Sun Hits by Slowdive, Skinny Love by Bon Iver. Start calm and slowly build up energy. At most 3 songs per artist, and never two songs by the same artist in a row. Mostly songs and artists I already listen to.
+Create a mellow playlist of about 60 minutes, based on the songs I've been listening to this week. Vibe like When the Sun Hits by Slowdive, Skinny Love by Bon Iver. Start calm and slowly build up energy. At most 2 songs per artist, and never two songs by the same artist in a row. Mostly songs and artists I already listen to, plus some lesser-known songs. Leave out anything too loud.
 ```
 
 Merge:
@@ -104,8 +110,7 @@ Change only the part of the description the tweak touches:
 | User says | Edit |
 | --- | --- |
 | "more upbeat" | Change `<mood>`, or the arc line. |
-| "drop <artist>" | Remove that artist from the vibe list, add "No <artist>." at the end. |
+| "drop <artist>" | Remove that artist from the vibe list and add them to the leave-out line. |
 | "longer" / "shorter" | Change `<N>`. |
-| "more new stuff" / "more songs I know" | Move the familiarity level one step and swap the line. |
-| "less obvious" | Move popularity towards deep cuts. |
+| "more new stuff" / "more songs I know" / "less obvious" | Move the adventure level one step and swap the line. |
 | "too much <artist>" | Lower the cap for that artist: "At most 1 song by <artist>." |

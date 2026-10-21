@@ -35,31 +35,34 @@ These hold on every call. The evidence and workarounds are in [`references/conne
 
 Each setting comes from, in order: the user's request, the taste profile's defaults, or the interview.
 
-| Setting | Values | Asked in |
-| --- | --- | --- |
-| Start from | one song · artists · this week · most played · a mix | quick, full |
-| Occasion and mood | free text | quick, full |
-| Length | minutes | quick, full |
-| Familiarity | 1 all known · 2 mostly known · 3 half and half · 4 mostly new · 5 all new | full |
-| Arc | steady · build up · wind down · rise and fall | full |
-| Popularity | hits · mix · deep cuts | full |
-| Seeds | the user's playlists, or none | step 4a |
+| Setting | Values | Asked in | Default |
+| --- | --- | --- | --- |
+| Start from | one song · artists · this week · most played · a mix | core | |
+| Occasion and mood | free text | core | |
+| Length | minutes | core | |
+| Adventure | 1 only songs I know · 2 mostly known · 3 half and half · 4 mostly new · 5 all new | fine-tune | 2 |
+| Arc | steady · build up · wind down · rise and fall | fine-tune | steady |
+| Songs per artist | 1 · 2 · 3 · no limit | fine-tune | 3 |
+| Leave out | artists, songs or kinds of music, free text | fine-tune | nothing |
+| Seeds | the user's playlists, or none | step 4a | |
 
-Settings outside the asked depth use the profile default, else familiarity 2, arc steady, popularity mix.
+Settings nobody filled use the profile default, else the default above. Two songs by the same artist never play in a row, whatever the songs-per-artist value.
 
-**Silent defaults**: never ask about these, always apply them. At most 3 songs per artist, and never two songs by the same artist in a row. Change them only when the user asks.
+**Fine-tune**: the profile's `Fine-tune` default says when to ask the fine-tune settings: `ask` (the default) offers them as the last question of the core round, `always` asks them with the core round, `never` skips them. Older profiles map over: `Depth: quick` is `never`, `Depth: full` is `always`, and `Familiarity: N` is `Adventure: N`.
 
-**Depth**: quick or full, from the profile's `Depth` default. With no default, ask it as the first question of the interview. Songs mode needs only Start from, Occasion and mood, and Familiarity.
+**Read hints.** Any reply can set a setting the user wasn't asked about: "I'm open to new artists" in the judge round moves adventure to 3, "nothing too loud" fills leave out. Apply it and name the change in one line, so the user can undo it.
+
+Songs mode needs only Start from, Occasion and mood, and Adventure.
 
 ## Flow
 
 ### 1. Interview
 
-**Fast path.** When the request and the profile together fill every setting the depth asks, show them in one line and ask "Use these, or change any?" Then skip to the step the answers point to.
+**Fast path.** When the request and the profile together fill every core setting, show all settings in one line and ask "Use these, or change any?" Then skip to the step the answers point to.
 
-Otherwise ask one round with only the missing settings for the depth, all at once. Use the ask-user tool when the client has one; otherwise a short numbered list. Question wording and options: [`references/interview-questions.md`](references/interview-questions.md).
+Otherwise ask one round with only the missing core settings, all at once, plus "Fine-tune more?" as the last question when `Fine-tune` is `ask`. On a yes, ask the fine-tune settings in a second round. Use the ask-user tool when the client has one; otherwise a short numbered list. Question wording and options: [`references/interview-questions.md`](references/interview-questions.md).
 
-Done when every setting the depth needs has a value.
+Done when every core setting has a value and the fine-tune round, if any, is answered.
 
 ### 2. Anchors
 
@@ -83,11 +86,11 @@ Run the searches for the Start from setting, in parallel:
 | most played | `my most played songs` |
 | a mix | the anchor searches plus `my recently played tracks this week` |
 
-"Songs similar to" often returns only a few tracks, mostly saved ones. The plain-name searches fill the gap. For familiarity 4 or 5, also search the unsaved similar artists by plain name.
+"Songs similar to" often returns only a few tracks, mostly saved ones, or a `NO_CONTENT` error. Either way, fill the gap by searching 3 to 5 of the similar artists by plain name. For adventure 4 or 5, pick the unsaved ones.
 
 Then show:
 
-- 8 to 12 numbered tracks, each with its Spotify link and ♥ if saved. **Alternate artists**: never two tracks by the same artist next to each other. For familiarity 4 or 5, favour unsaved tracks; for 1 or 2, favour saved ones.
+- 8 to 12 numbered tracks, each with its Spotify link and ♥ if saved. **Alternate artists**: never two tracks by the same artist next to each other. For adventure 4 or 5, favour unsaved tracks; for 1 or 2, favour saved ones. Skip artists the user wants left out.
 - One row of similar artists, playable ones only.
 
 Ask the user to reply with the tracks to keep and any similar artists that fit. Done when the user has picked at least one track.
@@ -98,7 +101,7 @@ Search `my playlists` with `limit: 20`. Show the user's own playlists (`can_edit
 
 ### 4b. Songs (songs mode)
 
-List the kept tracks with links. For familiarity 3 to 5, add 3 to 5 more tracks from the similar-artist row, searched by plain name, so the list holds new songs too. Offer to save any of them; call `save_to_library` only for the tracks the user names. Offer to turn the list into a playlist, which continues at step 4a. Otherwise stop here.
+List the kept tracks with links. For adventure 3 to 5, add 3 to 5 more tracks from the similar-artist row, searched by plain name, so the list holds new songs too. Offer to save any of them; call `save_to_library` only for the tracks the user names. Offer to turn the list into a playlist, which continues at step 4a. Otherwise stop here.
 
 ### 4c. Merge (merge mode)
 
@@ -116,7 +119,7 @@ Make one `generate_playlist` call. Read [`references/prompt-templates.md`](refer
 - **Seeds first.** When the user picked seed playlists, the description opens with them as the main source.
 - **One named track per artist**, at most about 5 named tracks in total. Naming many tracks by one artist turns the whole playlist into that artist.
 - `<N>` is always minutes: convert hours (2 h → 120 minutes).
-- Write only what the user asked for, plus the silent defaults.
+- Write only what the user asked for, plus the songs-per-artist line.
 
 ### 6. Wrap up
 

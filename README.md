@@ -18,7 +18,7 @@ The Spotify connector in Claude can generate a playlist, but only from a single 
 ```mermaid
 flowchart TD
     A([You: make me a playlist]) --> T[Read taste profile defaults, if any]
-    T --> I[1. Interview<br/>quick: 3 questions, full: about 6,<br/>or a one-line confirm]
+    T --> I[1. Interview<br/>3 core questions, optional fine-tune,<br/>or a one-line confirm]
     I --> N[2. Anchors<br/>one song, or 2 to 4 artists]
     I -- this week / most played --> J
     N --> J[3. Judge round<br/>real tracks, artists alternated,<br/>you keep the best]
@@ -71,20 +71,21 @@ Ask for a playlist in your own words:
 
 ### Settings
 
-Say settings in your request, set defaults in your taste profile, or answer them in the interview. Quick depth asks 3 questions; full asks about 6.
+Say settings in your request, set defaults in your taste profile, or answer them in the interview. The interview asks 3 core questions, then offers to fine-tune the rest. Anything you mention along the way ("I'm open to new artists") changes the matching setting, and Claude tells you what it changed.
 
-| Setting | Options | Asked in |
-| --- | --- | --- |
-| Mode | playlist · songs (find songs, no playlist) · merge (combine your playlists) | from your request |
-| Start from | one song · artists you name · what you played this week · your most played · a mix | quick, full |
-| Occasion and mood | your own words | quick, full |
-| Length | any, in minutes or hours | quick, full |
-| Familiarity | 1 all known · 2 mostly known · 3 half and half · 4 mostly new · 5 all new | full |
-| Arc | steady · build up · wind down · rise and fall | full |
-| Popularity | hits · mix · deep cuts | full |
-| Seeds | your own playlists, picked from a list | always |
+| Setting | Options | Asked in | Default |
+| --- | --- | --- | --- |
+| Mode | playlist · songs (find songs, no playlist) · merge (combine your playlists) | from your request | playlist |
+| Start from | one song · artists you name · what you played this week · your most played · a mix | core | |
+| Occasion and mood | your own words | core | |
+| Length | any, in minutes or hours | core | |
+| Adventure | 1 only songs you know · 2 mostly known · 3 half and half · 4 mostly new · 5 all new, deep cuts | fine-tune | 2 |
+| Arc | steady · build up · wind down · rise and fall | fine-tune | steady |
+| Songs per artist | 1 · 2 · 3 · no limit | fine-tune | 3 |
+| Leave out | artists, songs or kinds of music, in your words | fine-tune | nothing |
+| Seeds | your own playlists, picked from a list | always | |
 
-Artist spread is never asked: every playlist gets at most 3 songs per artist and never two in a row, unless you ask for something else.
+The same artist never plays twice in a row, whatever the songs-per-artist setting.
 
 ### Taste profile (optional)
 

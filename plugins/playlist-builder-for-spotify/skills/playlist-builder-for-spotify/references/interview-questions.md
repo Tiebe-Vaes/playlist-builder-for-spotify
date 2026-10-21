@@ -1,17 +1,8 @@
 # Interview questions
 
-Ask only the settings that neither the request nor the taste profile fills, for the chosen depth, in one round. Each question offers 3 or 4 options; the user can always type their own answer. A request like "a 2 hour study playlist" already fills occasion and length.
+Ask only the settings that neither the request nor the taste profile fills, in as few rounds as possible. Each question offers 3 or 4 options; the user can always type their own answer. A request like "a 2 hour study playlist" already fills occasion and length.
 
-## Depth
-
-Ask first, only when the profile has no `Depth` default.
-
-How many questions do you want?
-
-- Quick: 3 questions
-- Full: about 6 questions, for a more exact result
-
-## Quick and full
+## Core round
 
 ### Start from
 
@@ -39,17 +30,24 @@ How long should it run?
 
 Write the answer down in minutes for the generate step.
 
-## Full only
+### Fine-tune more?
 
-### Familiarity
+Last question of the core round, only when the profile's `Fine-tune` is `ask` or missing.
 
-How much should be new to you? Five levels; offer them as a list from 1 to 5.
+- No, that's enough
+- Yes: how new, the shape, songs per artist, things to leave out
+
+## Fine-tune round
+
+### Adventure
+
+How much should be new to you, and how far from the hits? Five levels; offer them as a list from 1 to 5.
 
 1. Only songs I already know
-2. Mostly songs I know
+2. Mostly songs I know, some lesser-known ones
 3. Half known, half new
-4. Mostly new artists
-5. Only new artists
+4. Mostly new artists, few obvious hits
+5. Only new artists, deep cuts
 
 Ask-user tools often allow only 4 options. Then offer 1, 2, 4 and 5; the user can type "half and half" for level 3.
 
@@ -62,17 +60,20 @@ What shape should it have?
 - Wind down
 - Rise and fall
 
-### Popularity
+### Songs per artist
 
-Hits or deep cuts?
+How many songs can one artist get?
 
-- Mostly hits
-- A mix
-- Mostly deep cuts
+- 1
+- 2
+- 3 (default)
+- No limit
 
-## Not asked
+Whatever the answer, the same artist never plays twice in a row.
 
-Artist spread is a silent default: at most 3 songs per artist, never two in a row. Live testing showed users expect it without being asked. Change it only when the user brings it up.
+### Leave out
+
+Anything to leave out? Free text: artists, songs, or kinds of music ("no Coldplay", "nothing too loud", "no songs I'm sick of"). "Nothing" is a fine answer.
 
 ## Follow-ups
 

@@ -4,6 +4,18 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Added
+
+- Songs per artist setting (1, 2, 3 or no limit), so the artist cap is no longer fixed at 3.
+- Leave out setting: artists, songs or kinds of music to skip, written into the description in your words.
+- The skill reads hints from any reply ("I'm open to new artists") and says which setting it changed.
+
+### Changed
+
+- The interview asks 3 core questions, then offers to fine-tune adventure, arc, songs per artist and leave out. The quick or full depth question is gone; the profile's `Fine-tune` default (`ask`, `always`, `never`) replaces `Depth`.
+- Familiarity and popularity are merged into one adventure setting (1 to 5), which covers both how new the music is and how far from the hits.
+- A `NO_CONTENT` error from "songs similar to" falls back to plain-name searches of similar artists.
+
 ## [0.3.1] - 2026-10-21
 
 ### Added

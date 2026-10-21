@@ -33,7 +33,7 @@ Tested live in October 2026:
 
 | Query | Returns |
 | --- | --- |
-| `songs similar to <song> by <artist>` | Real tracks, but unreliable: 7 in one test, 1 in the next, mostly ones the user already saved |
+| `songs similar to <song> by <artist>` | Real tracks, but unreliable: 7 in one test, 1 in the next, mostly ones the user already saved. A third test ("Black and White" by Rainbow Kitten Surprise) returned a `NO_CONTENT` error |
 | `new songs I haven't heard similar to <song>` | Only an AI-made playlist (the vibe-query trap) |
 | `artists similar to <artist>` | Real artists. Some carry `playback.status: NOT_PLAYABLE` with `LICENSOR_RESTRICTED`; skip those |
 
