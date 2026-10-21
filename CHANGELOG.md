@@ -4,6 +4,18 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+## [0.3.1] - 2026-10-21
+
+### Added
+
+- The release zip includes the MIT `LICENSE` file.
+- Listing copy for the Agensi marketplace in `docs/agensi-listing.md`.
+- Compatibility notes in the README: the skill needs Claude's Spotify connector, and it uses no API keys, scripts or network calls of its own.
+
+### Removed
+
+- The roadmap item for saving from the wrap-up, which shipped in 0.3.0.
+
 ## [0.3.0] - 2026-10-19
 
 ### Added
@@ -47,7 +59,8 @@ All notable changes to this project are documented here. The format follows [Kee
 - CI: plugin validation, JSON, markdown lint, link check, eval and version check.
 - Release workflow that attaches a claude.ai-ready zip to each GitHub Release.
 
-[Unreleased]: https://github.com/Tiebe-Vaes/playlist-builder-for-spotify/compare/v0.3.0...HEAD
+[Unreleased]: https://github.com/Tiebe-Vaes/playlist-builder-for-spotify/compare/v0.3.1...HEAD
+[0.3.1]: https://github.com/Tiebe-Vaes/playlist-builder-for-spotify/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/Tiebe-Vaes/playlist-builder-for-spotify/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/Tiebe-Vaes/playlist-builder-for-spotify/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/Tiebe-Vaes/playlist-builder-for-spotify/releases/tag/v0.1.0
