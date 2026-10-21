@@ -41,6 +41,8 @@ Create a calm, sad acoustic playlist of about 120 minutes based on my taste and 
 
 You need the **Spotify connector** connected in Claude and a **Spotify Premium** account, since generating playlists needs Premium.
 
+The skill works only in Claude (claude.ai, Claude Desktop and Claude Code), because it relies on Claude's Spotify connector. Other agents that read `SKILL.md` files can load it but have no connector to call. It needs no API keys, runs no scripts and makes no network calls of its own.
+
 ### Claude Code
 
 ```text
@@ -119,7 +121,6 @@ docs/                                  design notes
 
 - [ ] Demo GIF
 - [ ] Spotify Web API fallback for users without the connector, which can also read playlist contents and add exact tracks. Design: [`docs/web-api-fallback.md`](docs/web-api-fallback.md)
-- [ ] Save the generated playlist to the library from the wrap-up step
 - [ ] Run the flow evals in CI once a connector mock exists
 
 ## Contributing
