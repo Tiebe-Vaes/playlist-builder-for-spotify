@@ -210,6 +210,32 @@
         "Tells the user in one line that the adventure setting changed",
         "Moves on to the seed playlist question"
       ]
+    },
+    {
+      "id": 19,
+      "prompt": "[Simulated state] Client renders elicitation forms (show_widget). No taste profile. User: 'make me a playlist'",
+      "expected_output": "Searches 'my playlists' first, then shows one interview form with start from, song or artists, mood, occasion, a length slider, an adventure slider, songs per artist, seeds, leave out, name and a skip-judge option. Makes no generate_playlist call yet.",
+      "files": [],
+      "expectations": [
+        "Searches 'my playlists' before showing the form",
+        "Shows a single form instead of several question rounds",
+        "The form includes the user's playlists as seed options",
+        "Does not ask about arc",
+        "Does not call generate_playlist before the form is answered"
+      ]
+    },
+    {
+      "id": 20,
+      "prompt": "[Simulated state] Form answers: Start from: One song · Song or artists: Nude by Radiohead · Mood: Calm · Occasion: Falling asleep · Length minutes: 45 · Adventure: 2 · Songs per artist: 2 · Seeds: None · Judge round: Skip, just make it · Playlist name: Night drift",
+      "expected_output": "Runs no judge-round searches and makes one generate_playlist call whose description uses Nude by Radiohead as the start line, names no other tracks, uses 45 minutes, the 2-per-artist line and 'Call it Night drift.'",
+      "files": [],
+      "expectations": [
+        "Makes no search calls for a judge round",
+        "Description contains 'Use Nude by Radiohead as the starting point.'",
+        "Description contains 'At most 2 songs per artist'",
+        "Description contains 'Call it Night drift.'",
+        "Description says about 45 minutes"
+      ]
     }
   ]
 }

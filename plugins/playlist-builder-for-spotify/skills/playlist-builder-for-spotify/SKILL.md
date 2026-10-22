@@ -37,14 +37,16 @@ Each setting comes from, in order: the user's request, the taste profile's defau
 
 | Setting | Values | Asked in | Default |
 | --- | --- | --- | --- |
-| Start from | one song · artists · this week · most played · a mix | core | |
+| Start from | one song · artists · this week · most played; several picks make a mix | core | |
 | Occasion and mood | free text | core | |
-| Length | minutes | core | |
+| Length | minutes, up to 720 | core | |
 | Adventure | 1 only songs I know · 2 mostly known · 3 half and half · 4 mostly new · 5 all new | fine-tune | 2 |
-| Arc | steady · build up · wind down · rise and fall | fine-tune | steady |
 | Songs per artist | 1 · 2 · 3 · no limit | fine-tune | 3 |
 | Leave out | artists, songs or kinds of music, free text | fine-tune | nothing |
 | Seeds | the user's playlists, or none | step 4a | |
+| Name | free text | form only | Spotify picks one |
+| Judge round | pick songs · skip | form only | pick songs |
+| Arc | steady · build up · wind down · rise and fall | never; hints only | steady |
 
 Settings nobody filled use the profile default, else the default above. Two songs by the same artist never play in a row, whatever the songs-per-artist value.
 
@@ -58,9 +60,11 @@ Songs mode needs only Start from, Occasion and mood, and Adventure.
 
 ### 1. Interview
 
+**Form.** When the client can render an elicitation form, ask the whole interview in **one form**: core and fine-tune settings, the song or artists, seeds, name and whether to skip the judge round. Prefill it from the profile. Search `my playlists` first so the seeds fit in. Layout and fields: [`references/forms.md`](references/forms.md). The form replaces the rounds below and steps 2 and 4a.
+
 **Fast path.** When the request and the profile together fill every core setting, show all settings in one line and ask "Use these, or change any?" Then skip to the step the answers point to.
 
-Otherwise ask one round with only the missing core settings, all at once, plus "Fine-tune more?" as the last question when `Fine-tune` is `ask`. On a yes, ask the fine-tune settings in a second round. Use the ask-user tool when the client has one; otherwise a short numbered list. Question wording and options: [`references/interview-questions.md`](references/interview-questions.md).
+Without a form, ask one round with only the missing core settings, all at once, plus "Fine-tune more?" as the last question when `Fine-tune` is `ask`. On a yes, ask the fine-tune settings in a second round. Use the ask-user tool when the client has one; otherwise a short numbered list. Question wording and options: [`references/interview-questions.md`](references/interview-questions.md).
 
 Done when every core setting has a value and the fine-tune round, if any, is answered.
 
@@ -72,7 +76,7 @@ Done when every core setting has a value and the fine-tune round, if any, is ans
 | artists, a mix | 2 to 4 **anchor** artists that nail the vibe |
 | this week, most played | nothing |
 
-Users think in artists and songs more than genres, so accept whatever they give. With profile anchors, offer them as the default: "Use <artist> and <artist> again, or someone else?"
+Skip this step when the form's song-or-artists box already gave them. Users think in artists and songs more than genres, so accept whatever they give. With profile anchors, offer them as the default: "Use <artist> and <artist> again, or someone else?"
 
 ### 3. Judge round
 
@@ -93,11 +97,13 @@ Then show:
 - 8 to 12 numbered tracks, each with its Spotify link and ♥ if saved. **Alternate artists**: never two tracks by the same artist next to each other. For adventure 4 or 5, favour unsaved tracks; for 1 or 2, favour saved ones. Skip artists the user wants left out.
 - One row of similar artists, playable ones only.
 
-Ask the user to reply with the tracks to keep and any similar artists that fit. Done when the user has picked at least one track.
+Ask the user to reply with the tracks to keep and any similar artists that fit. With a form tool, show the tracks as a judge form with 30-second previews instead: see [`references/forms.md`](references/forms.md). Done when the user has picked at least one track.
+
+When the user chose to skip the judge round, run no searches and go on: the description names only the anchors.
 
 ### 4a. Seeds (playlist mode)
 
-Search `my playlists` with `limit: 20`. Show the user's own playlists (`can_edit_items: true`) first, then followed ones labelled "(followed)". Ask: "Which of your playlists should it be based on?" Pre-select the profile's seed playlists. Warn when two playlists share a name (like "."), because the description cannot tell them apart. Done when the user has picked seeds or said none.
+Skip this step when the form already asked for seeds. Otherwise search `my playlists` with `limit: 20`. Show the user's own playlists (`can_edit_items: true`) first, then followed ones labelled "(followed)". Ask: "Which of your playlists should it be based on?" Pre-select the profile's seed playlists. Warn when two playlists share a name (like "."), because the description cannot tell them apart. Done when the user has picked seeds or said none.
 
 ### 4b. Songs (songs mode)
 
@@ -125,7 +131,7 @@ Make one `generate_playlist` call. Read [`references/prompt-templates.md`](refer
 
 Give the playlist link, and say plainly: "It's private and won't show up in your Spotify library until it's saved. Want me to save it?" Call `save_to_library` with the playlist's URI only after a yes.
 
-Then offer a regenerate with a tweak ("more upbeat", "more new stuff"). On a regenerate, change only the part of the description the tweak touches and call `generate_playlist` again.
+Then offer a regenerate with a tweak ("more upbeat", "more new stuff"). With a widget tool, offer these and the save as buttons: see [`references/forms.md`](references/forms.md). On a regenerate, change only the part of the description the tweak touches and call `generate_playlist` again.
 
 If `generate_playlist` returns `NOT_SUBSCRIBED` or `PREMIUM_REQUIRED_FALLBACK`, say that generating needs Spotify Premium and offer songs mode instead.
 

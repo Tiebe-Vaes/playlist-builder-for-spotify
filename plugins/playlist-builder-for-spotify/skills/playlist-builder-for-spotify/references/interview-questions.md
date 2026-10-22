@@ -1,6 +1,6 @@
 # Interview questions
 
-Ask only the settings that neither the request nor the taste profile fills, in as few rounds as possible. Each question offers 3 or 4 options; the user can always type their own answer. A request like "a 2 hour study playlist" already fills occasion and length.
+With a form tool, use [`forms.md`](forms.md) instead: one form holds every question below. Without one, ask only the settings that neither the request nor the taste profile fills, in as few rounds as possible. Each question offers 3 or 4 options; the user can always type their own answer. A request like "a 2 hour study playlist" already fills occasion and length.
 
 ## Core round
 
@@ -13,7 +13,7 @@ What should the playlist grow from?
 - What I've listened to this week
 - My most played songs
 
-"A mix of artists and this week" is the fifth option; offer it when the ask-user tool allows 5, otherwise accept it typed.
+Allow several picks when the ask-user tool supports multi-select; several picks make "a mix".
 
 ### Occasion and mood
 
@@ -26,7 +26,7 @@ How long should it run?
 - About 30 minutes
 - About 1 hour
 - About 2 hours
-- 3 hours or more
+- 3 hours or more (the user can type up to 12 hours)
 
 Write the answer down in minutes for the generate step.
 
@@ -35,7 +35,7 @@ Write the answer down in minutes for the generate step.
 Last question of the core round, only when the profile's `Fine-tune` is `ask` or missing.
 
 - No, that's enough
-- Yes: how new, the shape, songs per artist, things to leave out
+- Yes: how new, songs per artist, things to leave out
 
 ## Fine-tune round
 
@@ -50,15 +50,6 @@ How much should be new to you, and how far from the hits? Five levels; offer the
 5. Only new artists, deep cuts
 
 Ask-user tools often allow only 4 options. Then offer 1, 2, 4 and 5; the user can type "half and half" for level 3.
-
-### Arc
-
-What shape should it have?
-
-- Steady vibe
-- Build up
-- Wind down
-- Rise and fall
 
 ### Songs per artist
 

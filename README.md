@@ -18,7 +18,7 @@ The Spotify connector in Claude can generate a playlist, but only from a single 
 ```mermaid
 flowchart TD
     A([You: make me a playlist]) --> T[Read taste profile defaults, if any]
-    T --> I[1. Interview<br/>3 core questions, optional fine-tune,<br/>or a one-line confirm]
+    T --> I[1. Interview<br/>one form, or 3 core questions<br/>plus optional fine-tune]
     I --> N[2. Anchors<br/>one song, or 2 to 4 artists]
     I -- this week / most played --> J
     N --> J[3. Judge round<br/>real tracks, artists alternated,<br/>you keep the best]
@@ -71,19 +71,22 @@ Ask for a playlist in your own words:
 
 ### Settings
 
-Say settings in your request, set defaults in your taste profile, or answer them in the interview. The interview asks 3 core questions, then offers to fine-tune the rest. Anything you mention along the way ("I'm open to new artists") changes the matching setting, and Claude tells you what it changed.
+Say settings in your request, set defaults in your taste profile, or answer them in the interview. On claude.ai and Claude Desktop the interview is one form with sliders, prefilled from your taste profile, and the judge round plays 30-second previews. Elsewhere it asks 3 core questions, then offers to fine-tune the rest. Anything you mention along the way ("I'm open to new artists") changes the matching setting, and Claude tells you what it changed.
 
 | Setting | Options | Asked in | Default |
 | --- | --- | --- | --- |
 | Mode | playlist · songs (find songs, no playlist) · merge (combine your playlists) | from your request | playlist |
 | Start from | one song · artists you name · what you played this week · your most played · a mix | core | |
 | Occasion and mood | your own words | core | |
-| Length | any, in minutes or hours | core | |
+| Length | up to 12 hours | core | |
 | Adventure | 1 only songs you know · 2 mostly known · 3 half and half · 4 mostly new · 5 all new, deep cuts | fine-tune | 2 |
-| Arc | steady · build up · wind down · rise and fall | fine-tune | steady |
 | Songs per artist | 1 · 2 · 3 · no limit | fine-tune | 3 |
 | Leave out | artists, songs or kinds of music, in your words | fine-tune | nothing |
 | Seeds | your own playlists, picked from a list | always | |
+| Name | your own words | form | Spotify picks one |
+| Judge round | pick songs · skip | form | pick songs |
+
+Arc (steady, build up, wind down, rise and fall) is never asked; say it in your own words ("build it up slowly") and the skill picks it up.
 
 The same artist never plays twice in a row, whatever the songs-per-artist setting.
 

@@ -5,7 +5,7 @@
 ## Template
 
 ```text
-Create a <mood> playlist of about <N> minutes, <source>. <start line> Vibe like <track> by <artist>, <track> by <artist>, <artist>. <arc line> <artist line> <adventure line> <leave-out line>
+Create a <mood> playlist of about <N> minutes, <source>. <start line> Vibe like <track> by <artist>, <track> by <artist>, <artist>. <arc line> <artist line> <adventure line> <leave-out line> <name line>
 ```
 
 Leave a slot out when it is empty. Fill each slot from the tables below.
@@ -17,6 +17,7 @@ These come from live tests. A playlist scored 2/10 when the description broke th
 - **Seeds first.** When the user picked seed playlists, `<source>` names them as the main source. Seeds in a trailing "and my playlists …" clause were ignored.
 - **One named track per artist, about 5 in total.** A description that named five Radiohead tracks produced a playlist titled "…Radiohead Vibe" with one artist dominating. Pick the kept tracks that cover the most different artists. Similar artists the user picked go in by name only.
 - **Minutes.** `<N>` is always minutes; the connector's own instructions ask for them.
+- **Skipped judge round.** With no kept tracks, the vibe list names only the anchors: the song (as the start line) or the artists.
 - **Nothing extra.** Decades, languages, "no explicit" and genres go in only when the user said them, in their words.
 
 ## Source
@@ -36,6 +37,8 @@ With seeds and a history start, add the history after the seeds: `built mainly f
 Only for start from **one song**: `Use <song> by <artist> as the starting point.` The song's artist still counts towards the one-track-per-artist rule.
 
 ## Arc line
+
+Only when the user hinted at a shape ("build it up slowly"); arc is never asked.
 
 | Arc | Line |
 | --- | --- |
@@ -69,6 +72,10 @@ One line covers both how new the music is and how far from the hits. It replaced
 Only when the user named something: `Leave out <their words>.` For example `Leave out Coldplay and anything too loud.`
 
 Claude cannot read the generated playlist, so it cannot check the split, the arc or the artist cap. Never promise them in the wrap-up.
+
+## Name line
+
+Only when the user gave a name: `Call it <name>.` Untested: if Spotify ignores it, say so in the wrap-up instead of claiming the name.
 
 ## Merge template
 
