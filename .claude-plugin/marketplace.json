@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "Claude skill that builds personal Spotify playlists through a short interview and a track-judging round.",
-    "version": "0.3.1"
+    "version": "0.4.0"
   },
   "plugins": [
     {
