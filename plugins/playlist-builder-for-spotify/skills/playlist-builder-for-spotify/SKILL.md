@@ -103,7 +103,7 @@ When the user chose to skip the judge round, run no searches and go on: the desc
 
 ### 4a. Seeds (playlist mode)
 
-Skip this step when the form already asked for seeds. Otherwise search `my playlists` with `limit: 20`. Show the user's own playlists (`can_edit_items: true`) first, then followed ones labelled "(followed)". Ask: "Which of your playlists should it be based on?" Pre-select the profile's seed playlists. Warn when two playlists share a name (like "."), because the description cannot tell them apart. Done when the user has picked seeds or said none.
+Skip this step when the form already asked for seeds. Otherwise search `my playlists` with `limit: 20`. Show the user's own playlists (`can_edit_items: true`) first, then followed ones labelled "(followed)". Ask: "Which of your playlists should it be based on?" Pre-select the profile's seed playlists. Warn when two playlists share a name (like "."), because the description cannot tell them apart. The search lists at most 20 playlists, so also accept names the user types. Search each typed name by plain name; when no playlist of the user's matches, say so and ask whether to keep it. Done when the user has picked seeds or said none.
 
 ### 4b. Songs (songs mode)
 

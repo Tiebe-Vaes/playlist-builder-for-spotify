@@ -75,7 +75,7 @@ Claude cannot read the generated playlist, so it cannot check the split, the arc
 
 ## Name line
 
-Only when the user gave a name: `Call it <name>.` Untested: if Spotify ignores it, say so in the wrap-up instead of claiming the name.
+Only when the user gave a name: `Call it <name>.` In a live test, "Call it pianoze." produced "Pianoze Study Vibe": Spotify uses the name as a base, not word for word. In the wrap-up, give the name Spotify returned and never claim the exact one.
 
 ## Merge template
 
