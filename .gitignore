@@ -13,3 +13,6 @@ Thumbs.db
 
 # Node (scripts/)
 node_modules/
+
+# Claude Code plugin state
+**/.claude/autoharness/
