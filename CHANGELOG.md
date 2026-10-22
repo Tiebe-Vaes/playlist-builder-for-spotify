@@ -4,6 +4,12 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+## [0.4.1] - 2026-10-22
+
+### Fixed
+
+- The release zip no longer contains local Claude Code plugin state files (`.claude/autoharness/`).
+
 ## [0.4.0] - 2026-10-22
 
 ### Added
@@ -76,7 +82,8 @@ All notable changes to this project are documented here. The format follows [Kee
 - CI: plugin validation, JSON, markdown lint, link check, eval and version check.
 - Release workflow that attaches a claude.ai-ready zip to each GitHub Release.
 
-[Unreleased]: https://github.com/Tiebe-Vaes/playlist-builder-for-spotify/compare/v0.4.0...HEAD
+[Unreleased]: https://github.com/Tiebe-Vaes/playlist-builder-for-spotify/compare/v0.4.1...HEAD
+[0.4.1]: https://github.com/Tiebe-Vaes/playlist-builder-for-spotify/compare/v0.4.0...v0.4.1
 [0.4.0]: https://github.com/Tiebe-Vaes/playlist-builder-for-spotify/compare/v0.3.1...v0.4.0
 [0.3.1]: https://github.com/Tiebe-Vaes/playlist-builder-for-spotify/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/Tiebe-Vaes/playlist-builder-for-spotify/compare/v0.2.0...v0.3.0
