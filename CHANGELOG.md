@@ -8,7 +8,7 @@ All notable changes to this project are documented here. The format follows [Kee
 
 - Songs per artist setting (1, 2, 3 or no limit), so the artist cap is no longer fixed at 3.
 - Leave out setting: artists, songs or kinds of music to skip, written into the description in your words.
-- One interview form on clients that render forms (claude.ai, Claude Desktop): multi-select start, song or artists, mood and occasion, a length slider up to 12 hours, an adventure slider, seeds, an optional playlist name and a skip-the-judge-round option, prefilled from the taste profile.
+- One interview form on clients that render forms (claude.ai, Claude Desktop): start, song or artists, mood and occasion (all multi-select and optional), length up to 12 hours, adventure, seeds, an optional playlist name and a skip-the-judge-round option, prefilled from the taste profile.
 - Type in seed playlists that aren't in the list; the skill checks each name with a search.
 - Judge round as a form with 30-second previews, and wrap-up buttons for save and common tweaks.
 - The skill reads hints from any reply ("I'm open to new artists") and says which setting it changed.

@@ -6,16 +6,18 @@ Forms cannot run scripts. Use the elicitation classes and `data-*` attributes on
 
 ## Interview form
 
-Search `my playlists` with `limit: 20` **before** showing the form, so the seeds can go in it. Prefill every field the taste profile sets: give the pill `aria-pressed="true"`, or set the slider's `value`. Leave out fields the request already answered.
+Every field is optional: an empty field means the default, or no constraint. Make choice groups multi-select unless only one answer makes sense (length, adventure, songs per artist, judge round). Avoid sliders: the form can't show their live value, and testers couldn't tell what length they had picked.
+
+Search `my playlists` with `limit: 20` **before** showing the form, so the seeds can go in it. Prefill every field the taste profile sets: give the pill `aria-pressed="true"`. Leave out fields the request already answered.
 
 | Field (`data-name`) | Input | Notes |
 | --- | --- | --- |
 | `start_from` | cards, multi-select | One song · Artists · This week · Most played. Several picks make "a mix". |
 | `song_or_artists` | text box under `start_from` | "Which song or artists?" Fills step 2, so there is no separate anchors round. When "One song" is picked but the box names only artists, treat it as an artists start and say so in one line. A song without its artist gets one plain-name search to find the artist, even when the judge round is skipped. |
 | `mood` | pills, multi-select, with Other | Feeling words: calm, sad, warm, happy, energetic, dreamy. |
-| `occasion` | pills, with Other | Studying, driving, working out, falling asleep, walking, just listening. |
-| `length_minutes` | slider, 15 to 720, step 15 | Tick labels 15 min, 3 h, 6 h, 9 h, 12 h. The form can't show the live value, so read the number from the answer. |
-| `adventure` | slider, 1 to 5 | End labels "only songs I know" and "all new, deep cuts". Default 2. |
+| `occasion` | pills, multi-select, with Other | Studying, driving, working out, falling asleep, walking, just listening. |
+| `length` | pills, with Other | 30 min · 1 h · 2 h · 3 h · 5 h · 8 h · 12 h, plus Other for a typed length. Default 1 h. Convert to minutes for the description. |
+| `adventure` | cards 1 to 5 | Each card names its level: only songs I know · mostly known · half new · mostly new · all new, deep cuts. Default 2. |
 | `songs_per_artist` | pills | 1 · 2 · 3 · No limit. Default 3. |
 | `seeds` | pills, multi-select, with Other | The user's own playlists first, then followed ones labelled "(followed)", then None, then Other with a text box for playlists not in the list. Check typed names as in SKILL.md step 4a. Leave out playlists that share a name and say why in a muted note. |
 | `leave_out` | text area | Artists, songs or kinds of music. |

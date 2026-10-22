@@ -214,7 +214,7 @@
     {
       "id": 19,
       "prompt": "[Simulated state] Client renders elicitation forms (show_widget). No taste profile. User: 'make me a playlist'",
-      "expected_output": "Searches 'my playlists' first, then shows one interview form with start from, song or artists, mood, occasion, a length slider, an adventure slider, songs per artist, seeds, leave out, name and a skip-judge option. Makes no generate_playlist call yet.",
+      "expected_output": "Searches 'my playlists' first, then shows one interview form with start from, song or artists, mood, occasion, length, adventure, songs per artist, seeds, leave out, name and a skip-judge option. Makes no generate_playlist call yet.",
       "files": [],
       "expectations": [
         "Searches 'my playlists' before showing the form",

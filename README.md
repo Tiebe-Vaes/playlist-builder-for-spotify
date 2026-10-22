@@ -71,7 +71,7 @@ Ask for a playlist in your own words:
 
 ### Settings
 
-Say settings in your request, set defaults in your taste profile, or answer them in the interview. On claude.ai and Claude Desktop the interview is one form with sliders, prefilled from your taste profile, and the judge round plays 30-second previews. Elsewhere it asks 3 core questions, then offers to fine-tune the rest. Anything you mention along the way ("I'm open to new artists") changes the matching setting, and Claude tells you what it changed.
+Say settings in your request, set defaults in your taste profile, or answer them in the interview. On claude.ai and Claude Desktop the interview is one form, prefilled from your taste profile, and the judge round plays 30-second previews. Elsewhere it asks 3 core questions, then offers to fine-tune the rest. Anything you mention along the way ("I'm open to new artists") changes the matching setting, and Claude tells you what it changed.
 
 | Setting | Options | Asked in | Default |
 | --- | --- | --- | --- |
