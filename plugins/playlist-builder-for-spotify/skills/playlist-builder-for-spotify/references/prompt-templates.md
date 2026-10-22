@@ -75,7 +75,7 @@ Claude cannot read the generated playlist, so it cannot check the split, the arc
 
 ## Name line
 
-Only when the user gave a name: `Call it <name>.` In a live test, "Call it pianoze." produced "Pianoze Study Vibe": Spotify uses the name as a base, not word for word. In the wrap-up, give the name Spotify returned and never claim the exact one.
+Only when the user gave a name: `Call it <name>.` In a live test, "Call it pianoze." produced "Pianoze Study Vibe": Spotify uses the name as a base, not word for word. In a second test, "Call it half." was ignored ("Happy Energetic Dreamy Vibes"). Tell the user up front that the name is a wish, not a promise. In the wrap-up, give the name Spotify returned and never claim the exact one.
 
 ## Merge template
 

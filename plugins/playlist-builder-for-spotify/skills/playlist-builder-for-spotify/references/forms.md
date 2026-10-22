@@ -11,7 +11,7 @@ Search `my playlists` with `limit: 20` **before** showing the form, so the seeds
 | Field (`data-name`) | Input | Notes |
 | --- | --- | --- |
 | `start_from` | cards, multi-select | One song · Artists · This week · Most played. Several picks make "a mix". |
-| `song_or_artists` | text box under `start_from` | "Which song or artists?" Fills step 2, so there is no separate anchors round. When "One song" is picked but the box names only artists, treat it as an artists start and say so in one line. |
+| `song_or_artists` | text box under `start_from` | "Which song or artists?" Fills step 2, so there is no separate anchors round. When "One song" is picked but the box names only artists, treat it as an artists start and say so in one line. A song without its artist gets one plain-name search to find the artist, even when the judge round is skipped. |
 | `mood` | pills, multi-select, with Other | Feeling words: calm, sad, warm, happy, energetic, dreamy. |
 | `occasion` | pills, with Other | Studying, driving, working out, falling asleep, walking, just listening. |
 | `length_minutes` | slider, 15 to 720, step 15 | Tick labels 15 min, 3 h, 6 h, 9 h, 12 h. The form can't show the live value, so read the number from the answer. |
@@ -19,7 +19,7 @@ Search `my playlists` with `limit: 20` **before** showing the form, so the seeds
 | `songs_per_artist` | pills | 1 · 2 · 3 · No limit. Default 3. |
 | `seeds` | pills, multi-select, with Other | The user's own playlists first, then followed ones labelled "(followed)", then None, then Other with a text box for playlists not in the list. Check typed names as in SKILL.md step 4a. Leave out playlists that share a name and say why in a muted note. |
 | `leave_out` | text area | Artists, songs or kinds of music. |
-| `playlist_name` | text box | Optional. Empty lets Spotify name it. |
+| `playlist_name` | text box | Optional, with the placeholder "Spotify may change or ignore it". Empty lets Spotify name it. |
 | `judge_round` | pills | "Let me pick songs" (default) · "Skip, just make it". |
 
 Header title: "Playlist details". Arc is not a field: set it only from a hint ("build it up slowly").
